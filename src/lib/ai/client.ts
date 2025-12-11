@@ -76,10 +76,33 @@ export async function generateContent(
 
 export function parseJsonResponse<T>(response: string): T | null {
   try {
-    // Try to extract JSON from the response
-    const jsonMatch = response.match(/\{[\s\S]*\}/)
+    // Try to extract JSON from the response (non-greedy to avoid over-matching)
+    const jsonMatch = response.match(/\{[\s\S]*?\}(?=[^}]*$)|\{[\s\S]*\}/)
     if (jsonMatch) {
-      return JSON.parse(jsonMatch[0]) as T
+      // Try parsing, if fails try to find balanced braces
+      try {
+        return JSON.parse(jsonMatch[0]) as T
+      } catch {
+        // Find the first complete JSON object by counting braces
+        let depth = 0
+        let start = -1
+        for (let i = 0; i < response.length; i++) {
+          if (response[i] === '{') {
+            if (depth === 0) start = i
+            depth++
+          } else if (response[i] === '}') {
+            depth--
+            if (depth === 0 && start !== -1) {
+              const candidate = response.slice(start, i + 1)
+              try {
+                return JSON.parse(candidate) as T
+              } catch {
+                start = -1
+              }
+            }
+          }
+        }
+      }
     }
     return null
   } catch {

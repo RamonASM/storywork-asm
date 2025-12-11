@@ -11,7 +11,7 @@ export function getStripe(): Stripe {
   }
 
   stripeClient = new Stripe(process.env.STRIPE_SECRET_KEY, {
-    apiVersion: '2025-11-17.clover',
+    apiVersion: '2024-11-20.acacia',
   })
 
   return stripeClient
