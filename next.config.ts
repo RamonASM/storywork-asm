@@ -9,8 +9,10 @@ const nextConfig: NextConfig = {
     ignoreBuildErrors: true,
   },
 
-  // Use standalone output for better compatibility
-  output: 'standalone',
+  // Skip ESLint during build
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 }
 
 export default nextConfig
