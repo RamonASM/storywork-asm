@@ -23,8 +23,7 @@ export default function SignInPage() {
               identityPreviewEditButton: 'text-orange-500',
             },
           }}
-          afterSignInUrl="/dashboard"
-          signUpUrl="/sign-up"
+          fallbackRedirectUrl="/dashboard"
         />
       </div>
     </div>
