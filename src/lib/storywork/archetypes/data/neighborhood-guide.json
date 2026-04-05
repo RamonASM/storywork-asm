@@ -1,0 +1,180 @@
+{
+  "id": "neighborhood_guide",
+  "name": "Neighborhood Guide",
+  "version": 1,
+  "pillarId": "the_neighborhood",
+  "pillarName": "The Neighborhood",
+  "controllingIdea": "Every neighborhood has a story worth telling.",
+  "emotionalCore": ["discovery", "belonging", "pride"],
+  "narrativeArc": {
+    "incitingIncident": "There is a neighborhood people keep asking about",
+    "risingAction": "Explore the dining, lifestyle, convenience, and commute data",
+    "crisis": "Most agents describe areas with vague adjectives - you bring receipts",
+    "climax": "The real numbers paint a picture no listing description can match",
+    "resolution": "This community is calling - the question is whether you will answer"
+  },
+  "triggerMoments": [
+    {
+      "moment": "Buyers keep asking about a specific area",
+      "contextClues": ["everyone wants to move to", "popular neighborhood", "up and coming"],
+      "urgency": "this_week"
+    },
+    {
+      "moment": "Agent farms a specific neighborhood",
+      "contextClues": ["my farm area", "I specialize in", "I know this neighborhood"],
+      "urgency": "anytime"
+    },
+    {
+      "moment": "New development or area transformation",
+      "contextClues": ["new restaurants", "area is changing", "revitalization", "growth"],
+      "urgency": "this_week"
+    }
+  ],
+  "triggerKeywords": [
+    "neighborhood guide",
+    "area guide",
+    "community",
+    "moving to",
+    "what's it like in",
+    "farm area",
+    "local guide",
+    "neighborhood spotlight",
+    "area overview"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What neighborhood or community are you featuring?",
+      "purpose": "Identify the area and fetch location data",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "Winter Park, FL or College Park, Orlando",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "Why do people love living here?",
+      "purpose": "Capture the community's identity and appeal",
+      "narrativeMapping": "risingAction",
+      "placeholder": "Tree-lined streets, locally owned shops, Saturday farmers market...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "What surprises people about this area?",
+      "purpose": "Add discovery and insider knowledge",
+      "narrativeMapping": "crisis",
+      "placeholder": "Most people don't realize you're 20 minutes to the beach, or that there are 30+ restaurants on Park Ave...",
+      "optional": false
+    },
+    {
+      "id": "q4",
+      "question": "What type of resident thrives in this community?",
+      "purpose": "Help viewers self-identify with the area",
+      "narrativeMapping": "resolution",
+      "placeholder": "Families who want top schools and walkability, retirees looking for culture...",
+      "optional": false
+    },
+    {
+      "id": "q5",
+      "question": "What is your favorite personal spot or ritual here?",
+      "purpose": "Add authentic, agent-specific credibility",
+      "narrativeMapping": "climax",
+      "placeholder": "Every Sunday morning at Barnie's Coffee, then a walk around Lake Baldwin...",
+      "optional": true
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is a community-focused area guide. Use Life Here location intelligence when available to add real data points. Position the agent as the local expert. Focus on community character, not just amenities. This is about selling a lifestyle and neighborhood, not a specific property.",
+    "toneGuidance": "Warm, knowledgeable, proud. Sound like someone who genuinely knows and loves this area. Mix data with personal experience. Be specific - name real places, real numbers, real experiences.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "Bold neighborhood identity statement",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Pride"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "The Vibe",
+        "contentFocus": "What makes this neighborhood feel different",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Discovery"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "By the Numbers",
+        "contentFocus": "Life Here scores, dining count, park count",
+        "suggestedFormat": "data_point",
+        "emotionalBeat": "Credibility"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "Daily Life",
+        "contentFocus": "What a typical day or weekend looks like",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Aspiration"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "The Surprise",
+        "contentFocus": "What most people don't know about this area",
+        "suggestedFormat": "data_point",
+        "emotionalBeat": "Discovery"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "Who Belongs Here",
+        "contentFocus": "Ideal resident profile",
+        "suggestedFormat": "question",
+        "emotionalBeat": "Belonging"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "Want my full neighborhood guide? Let's connect.",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Action"
+      }
+    ],
+    "avoidPhrases": [
+      "It's worth noting",
+      "Nestled in",
+      "Boasts",
+      "Hidden treasure",
+      "Best kept secret"
+    ],
+    "emphasize": [
+      "community character and identity",
+      "specific local business names",
+      "real data points when available",
+      "personal agent experiences"
+    ]
+  },
+  "visualThemes": [
+    "neighborhood streets",
+    "local businesses",
+    "community events",
+    "park and green spaces",
+    "aerial views"
+  ],
+  "isActive": true,
+  "isSeasonal": false,
+  "usageHints": [
+    "Best for agents who farm a specific neighborhood",
+    "Use Life Here data when an address or area center point is available",
+    "Can be repurposed seasonally with different angles",
+    "Great for building local authority and attracting area-specific leads"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "Winter Park Community Guide",
+      "situation": "Agent farms Winter Park and wants to create a neighborhood showcase",
+      "sampleInput": "Winter Park is all about the tree-lined streets, Park Ave boutiques, and Saturday farmers market. 40+ restaurants, great schools, 25 min to the airport. Families and young professionals love it here.",
+      "expectedOutput": {
+        "hook": "Winter Park is not a suburb. It is a lifestyle.",
+        "keyMoment": "40+ restaurants on Park Ave. Top-rated schools. 25 minutes to MCO. This is the real Central Florida."
+      }
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "id": "lessons_learned",
+  "name": "Lessons Learned",
+  "version": 1,
+  "pillarId": "the_mirror",
+  "pillarName": "The Mirror",
+  "controllingIdea": "Mistakes and challenges shape us into the agents our clients need.",
+  "emotionalCore": ["vulnerability", "growth", "wisdom", "authenticity"],
+  "narrativeArc": {
+    "incitingIncident": "A past mistake, challenge, or difficult moment admitted",
+    "risingAction": "What happened and why - the honest reflection",
+    "crisis": "The consequence, failure, or realization moment",
+    "climax": "The lesson crystallized - what changed",
+    "resolution": "How it made you better, invitation for others to learn"
+  },
+  "triggerMoments": [
+    {
+      "moment": "Reflecting on early career mistakes",
+      "contextClues": ["when I started", "years ago", "learned the hard way"],
+      "urgency": "anytime"
+    },
+    {
+      "moment": "Recent situation reminded of past lesson",
+      "contextClues": ["reminded me", "same thing happened", "glad I learned"],
+      "urgency": "this_week"
+    },
+    {
+      "moment": "Mentoring moment",
+      "contextClues": ["told a new agent", "advice I give", "wish someone told me"],
+      "urgency": "anytime"
+    }
+  ],
+  "triggerKeywords": [
+    "mistake",
+    "learned",
+    "wish I had",
+    "next time",
+    "realized",
+    "changed how I",
+    "used to think",
+    "hard way",
+    "lesson",
+    "if I could go back"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What mistake or challenge taught you an important lesson?",
+      "purpose": "The vulnerable admission",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "Early in my career, I let a deal fall apart because I didn't...",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "What happened? What went wrong?",
+      "purpose": "The story",
+      "narrativeMapping": "risingAction",
+      "placeholder": "The inspection revealed issues I should have anticipated...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "What was the consequence or realization?",
+      "purpose": "The impact",
+      "narrativeMapping": "crisis",
+      "placeholder": "My clients lost the house they loved, and I felt responsible...",
+      "optional": false
+    },
+    {
+      "id": "q4",
+      "question": "What did you learn? How did it change you?",
+      "purpose": "The wisdom",
+      "narrativeMapping": "climax",
+      "placeholder": "Now I always do a pre-inspection walkthrough before offers...",
+      "optional": false
+    },
+    {
+      "id": "q5",
+      "question": "What would you tell someone facing a similar situation?",
+      "purpose": "Sharing wisdom",
+      "narrativeMapping": "resolution",
+      "placeholder": "Trust your gut, ask the hard questions, never assume...",
+      "optional": false
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is a vulnerability and growth story. The agent shares a real failure or challenge honestly. Focus on the lesson, not victimhood. This builds trust through authenticity.",
+    "toneGuidance": "Honest, reflective, not self-pitying. The goal is wisdom, not sympathy. Show growth and help others avoid the same mistake.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "The admission",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Vulnerability"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "The situation",
+        "contentFocus": "What happened",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Story"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "The mistake",
+        "contentFocus": "What went wrong",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Honesty"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "The consequence",
+        "contentFocus": "The impact",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Weight"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "The lesson",
+        "contentFocus": "What changed",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Growth"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "The wisdom",
+        "contentFocus": "Advice for others",
+        "suggestedFormat": "quote",
+        "emotionalBeat": "Value"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "Invitation to learn together",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Connection"
+      }
+    ],
+    "avoidPhrases": [
+      "It's worth noting",
+      "I always say"
+    ],
+    "emphasize": [
+      "honest reflection",
+      "specific details",
+      "the transformation",
+      "actionable wisdom"
+    ]
+  },
+  "visualThemes": [
+    "reflective imagery",
+    "professional headshots",
+    "text-focused slides",
+    "before/after metaphors"
+  ],
+  "isActive": true,
+  "isSeasonal": false,
+  "usageHints": [
+    "Be genuinely vulnerable - fake humility shows",
+    "Focus on the lesson, not the failure",
+    "Make it useful for others",
+    "End with growth and hope"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "The Deal I Lost",
+      "situation": "Sharing a failed transaction and the lesson",
+      "sampleInput": "Three years ago, I let a first-time buyer rush into a condo without a proper reserve study review. The HOA had a $50k special assessment 6 months later. I learned to always request financials, no matter what.",
+      "expectedOutput": {
+        "hook": "I cost my client $50,000. Here's what I learned.",
+        "keyMoment": "Now I request HOA financials before every condo offer. No exceptions."
+      }
+    }
+  ]
+}

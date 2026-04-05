@@ -1,0 +1,179 @@
+{
+  "id": "the_grind",
+  "name": "The Grind",
+  "version": 1,
+  "pillarId": "the_mirror",
+  "pillarName": "The Mirror",
+  "controllingIdea": "Behind every success is the unseen daily effort that makes it possible.",
+  "emotionalCore": ["dedication", "authenticity", "hustle", "respect"],
+  "narrativeArc": {
+    "incitingIncident": "A glimpse into actual daily work - the behind-the-scenes",
+    "risingAction": "The unsexy but necessary tasks and routines",
+    "crisis": "The challenge of consistency - why most people don't see this",
+    "climax": "Why it's worth it - the connection to client outcomes",
+    "resolution": "Appreciation earned, invitation to understand the work"
+  },
+  "triggerMoments": [
+    {
+      "moment": "Particularly busy period",
+      "contextClues": ["non-stop", "haven't slept", "crazy week", "back to back"],
+      "urgency": "same_day"
+    },
+    {
+      "moment": "Early morning or late night work",
+      "contextClues": ["5am", "still working", "midnight", "before sunrise"],
+      "urgency": "immediate"
+    },
+    {
+      "moment": "Behind-the-scenes preparation",
+      "contextClues": ["preparing", "getting ready", "behind the scenes", "what you don't see"],
+      "urgency": "same_day"
+    }
+  ],
+  "triggerKeywords": [
+    "grind",
+    "hustle",
+    "work ethic",
+    "behind the scenes",
+    "what you don't see",
+    "5am",
+    "still here",
+    "busy",
+    "dedication",
+    "the work",
+    "non-stop"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What does your actual daily work look like? The unglamorous parts?",
+      "purpose": "Show the reality",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "4am wake up for a 6am inspection, then showings until 8pm...",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "What tasks do most people not realize agents do?",
+      "purpose": "Education about the role",
+      "narrativeMapping": "risingAction",
+      "placeholder": "Endless paperwork, coordinating 10 different parties, solving problems at midnight...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "What's the hardest part about maintaining this pace?",
+      "purpose": "Authentic challenge",
+      "narrativeMapping": "crisis",
+      "placeholder": "Missing family dinners, never fully off, the mental load...",
+      "optional": true
+    },
+    {
+      "id": "q4",
+      "question": "Why is it worth it? What keeps you going?",
+      "purpose": "Purpose connection",
+      "narrativeMapping": "climax",
+      "placeholder": "Because when I hand over those keys, every missed dinner was worth it...",
+      "optional": false
+    },
+    {
+      "id": "q5",
+      "question": "What do you want people to understand about the work?",
+      "purpose": "The takeaway",
+      "narrativeMapping": "resolution",
+      "placeholder": "This isn't 9-5. It's a lifestyle. And I wouldn't have it any other way...",
+      "optional": false
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is an authenticity and dedication piece. Show the real work behind the results. Not complaining - celebrating the hustle and connecting it to client value.",
+    "toneGuidance": "Real, not whiny. Proud of the work ethic without martyrdom. Connect the grind to client outcomes. Show, don't just tell.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "The reality glimpse",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Attention"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "The scene",
+        "contentFocus": "What the day looks like",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Reality"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "Hidden work",
+        "contentFocus": "What people don't see",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Education"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "The challenge",
+        "contentFocus": "What it takes",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Authenticity"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "Why",
+        "contentFocus": "The connection to purpose",
+        "suggestedFormat": "quote",
+        "emotionalBeat": "Meaning"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "The reward",
+        "contentFocus": "What makes it worth it",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Satisfaction"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "Appreciation or invitation",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Respect"
+      }
+    ],
+    "avoidPhrases": [
+      "I work so hard",
+      "No one understands",
+      "It's exhausting"
+    ],
+    "emphasize": [
+      "specific details of the work",
+      "connection to client outcomes",
+      "passion not martyrdom",
+      "authentic moments"
+    ]
+  },
+  "visualThemes": [
+    "behind-the-scenes shots",
+    "early morning/late night",
+    "car office",
+    "authentic work moments"
+  ],
+  "isActive": true,
+  "isSeasonal": false,
+  "usageHints": [
+    "Don't complain - celebrate the hustle",
+    "Connect the work to client outcomes",
+    "Show real moments, not staged",
+    "Best when feeling energized, not exhausted"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "The 14-Hour Day",
+      "situation": "Showing what a full day actually looks like",
+      "sampleInput": "Today: 6am inspection, 8am contract negotiations, 10am listing photos, noon client lunch, 2pm showings, 5pm open house prep, 7pm buyer presentation. I'll answer emails at midnight. This is the job. I love it.",
+      "expectedOutput": {
+        "hook": "6am to midnight. This is what the job really looks like.",
+        "keyMoment": "Every hour is an hour closer to someone's keys."
+      }
+    }
+  ]
+}

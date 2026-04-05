@@ -1,0 +1,199 @@
+{
+  "id": "against_the_odds",
+  "name": "Against the Odds",
+  "version": 1,
+  "pillarId": "the_hunt",
+  "pillarName": "The Hunt",
+  "controllingIdea": "Persistence and strategy can overcome seemingly impossible market conditions.",
+  "emotionalCore": ["triumph", "perseverance", "relief", "pride"],
+  "narrativeArc": {
+    "incitingIncident": "Client faces a major obstacle - bidding war, limited inventory, credit issues, impossible timeline",
+    "risingAction": "Multiple setbacks increase stakes. Competition heats up. Doubts emerge.",
+    "crisis": "A moment of near-defeat. The 'all hope seems lost' turning point.",
+    "climax": "The breakthrough strategy or unexpected opportunity that changes everything.",
+    "resolution": "Victory achieved. Client in their new home. Relationship solidified."
+  },
+  "triggerMoments": [
+    {
+      "moment": "Just won a multiple offer situation",
+      "contextClues": ["won", "beat out", "multiple offers", "bidding war"],
+      "urgency": "immediate"
+    },
+    {
+      "moment": "Client with challenging circumstances got approved",
+      "contextClues": ["approved", "finally", "made it work", "figured it out"],
+      "urgency": "same_day"
+    },
+    {
+      "moment": "Found inventory when there was nothing available",
+      "contextClues": ["nothing on market", "found one", "came up", "perfect timing"],
+      "urgency": "same_day"
+    },
+    {
+      "moment": "Overcame appraisal or inspection issues",
+      "contextClues": ["appraisal gap", "inspection", "renegotiated", "saved the deal"],
+      "urgency": "this_week"
+    }
+  ],
+  "triggerKeywords": [
+    "finally",
+    "couldn't believe",
+    "against",
+    "overcame",
+    "won",
+    "beat out",
+    "managed to",
+    "somehow",
+    "miracle",
+    "impossible",
+    "didn't think",
+    "never expected",
+    "fought for",
+    "made it happen",
+    "pulled it off"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What was the initial challenge or obstacle your client faced?",
+      "purpose": "Establish the inciting incident and stakes",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "They were competing against 12 other offers...",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "What made this situation particularly difficult or competitive?",
+      "purpose": "Build rising action and tension",
+      "narrativeMapping": "risingAction",
+      "placeholder": "Cash buyers kept outbidding them, and inventory was at historic lows...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "What was the moment you thought it might not work out?",
+      "purpose": "Capture the crisis moment",
+      "narrativeMapping": "crisis",
+      "placeholder": "After losing the third house, they were ready to give up...",
+      "optional": true
+    },
+    {
+      "id": "q4",
+      "question": "What strategy or approach did you take to overcome it?",
+      "purpose": "Show the turning point and expertise",
+      "narrativeMapping": "climax",
+      "placeholder": "I suggested writing a personal letter and adjusting our offer structure...",
+      "optional": false
+    },
+    {
+      "id": "q5",
+      "question": "What was the outcome? How did it feel to win?",
+      "purpose": "Deliver the resolution and emotional payoff",
+      "narrativeMapping": "resolution",
+      "placeholder": "We got the call that our offer was accepted, and my client burst into tears...",
+      "optional": false
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is an underdog victory story. The agent helped clients overcome significant obstacles. Emphasize the struggle, the strategy, and the triumph.",
+    "toneGuidance": "Triumphant but humble. Show the fight without bragging. Let the facts speak to the agent's expertise.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "The impossible challenge",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Intrigue and stakes"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "Setup",
+        "contentFocus": "Context of the challenge",
+        "suggestedFormat": "data_point",
+        "emotionalBeat": "Understanding the difficulty"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "Rising tension",
+        "contentFocus": "The obstacles mounting",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Growing concern"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "Crisis",
+        "contentFocus": "The moment of doubt",
+        "suggestedFormat": "question",
+        "emotionalBeat": "Empathy and suspense"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "Breakthrough",
+        "contentFocus": "The winning strategy",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Hope and strategy"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "Resolution",
+        "contentFocus": "The victory moment",
+        "suggestedFormat": "quote",
+        "emotionalBeat": "Triumph and relief"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "Invitation to connect",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Trust and confidence"
+      }
+    ],
+    "avoidPhrases": [
+      "It's worth noting",
+      "In today's market",
+      "Don't miss out",
+      "Act now"
+    ],
+    "emphasize": [
+      "client's emotional journey",
+      "specific strategy used",
+      "concrete numbers when available",
+      "the turning point moment"
+    ]
+  },
+  "visualThemes": [
+    "before/after contrast",
+    "keys in hand moment",
+    "celebration photos",
+    "house exterior",
+    "data graphics showing competition"
+  ],
+  "isActive": true,
+  "isSeasonal": false,
+  "usageHints": [
+    "Best used within a few days of the victory for authenticity",
+    "Include specific numbers (offer count, price, timeline) when possible",
+    "The 'crisis' moment makes the victory more impactful",
+    "Let the client's emotion show through"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "First-Time Buyers Beat Investors",
+      "situation": "Young couple competing against all-cash investors in a hot market",
+      "sampleInput": "My first-time buyers just beat out 8 cash offers! They had been searching for 6 months and lost 4 houses before this. We wrote a heartfelt letter and offered flexibility on closing date.",
+      "expectedOutput": {
+        "hook": "They lost 4 houses. Then beat 8 cash offers.",
+        "keyMoment": "A personal letter and flexible closing made all the difference."
+      }
+    },
+    {
+      "title": "Relocating Family Under Pressure",
+      "situation": "Family needs to close in 3 weeks due to job start date",
+      "sampleInput": "This family had exactly 3 weeks to find and close on a home before the husband started his new job. We toured 15 houses in 2 days and made an offer that night.",
+      "expectedOutput": {
+        "hook": "3 weeks. 15 houses. One shot to get it right.",
+        "keyMoment": "Sometimes you have to move at the speed of life."
+      }
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "id": "lifestyle_spotlight",
+  "name": "Lifestyle Spotlight",
+  "version": 1,
+  "pillarId": "the_neighborhood",
+  "pillarName": "The Neighborhood",
+  "controllingIdea": "The right location transforms a house into a lifestyle.",
+  "emotionalCore": ["excitement", "aspiration", "belonging"],
+  "narrativeArc": {
+    "incitingIncident": "A property at this address offers more than square footage",
+    "risingAction": "Explore the dining, commute, parks, and daily conveniences",
+    "crisis": "Buyers overlook location data that changes everything",
+    "climax": "The Life Here score reveals the true lifestyle value",
+    "resolution": "This is not just a home - it is the life you have been looking for"
+  },
+  "triggerMoments": [
+    {
+      "moment": "Listing with great location stats",
+      "contextClues": ["walkable", "close to everything", "amazing location", "lifestyle"],
+      "urgency": "same_day"
+    },
+    {
+      "moment": "Buyer asks about area amenities",
+      "contextClues": ["what's nearby", "restaurants", "commute time", "parks", "groceries"],
+      "urgency": "same_day"
+    },
+    {
+      "moment": "Agent wants to showcase neighborhood advantage",
+      "contextClues": ["location score", "life here", "area highlights"],
+      "urgency": "this_week"
+    }
+  ],
+  "triggerKeywords": [
+    "lifestyle",
+    "location score",
+    "life here",
+    "walkable",
+    "close to",
+    "commute",
+    "restaurants nearby",
+    "parks",
+    "amenities",
+    "neighborhood score"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What is the property address?",
+      "purpose": "Fetch Life Here location data",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "123 Main St, Orlando, FL 32801",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "What do you love most about this location?",
+      "purpose": "Agent's authentic perspective on the area",
+      "narrativeMapping": "risingAction",
+      "placeholder": "The walkability is incredible - coffee shops, dinner spots, and a great park all within 10 minutes...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "Who is the ideal buyer for this lifestyle?",
+      "purpose": "Help viewers self-identify",
+      "narrativeMapping": "resolution",
+      "placeholder": "Young professionals who want to ditch the car, foodies who love trying new spots...",
+      "optional": false
+    },
+    {
+      "id": "q4",
+      "question": "Any standout feature about this specific property?",
+      "purpose": "Connect location to the listing",
+      "narrativeMapping": "climax",
+      "placeholder": "Rooftop terrace with downtown skyline views, 2-car garage for weekend adventures...",
+      "optional": true
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is a data-driven lifestyle showcase. Use the Life Here location intelligence to create compelling, specific content about the area. Weave real data points (scores, restaurant counts, commute times) naturally into the narrative. Do not just list numbers - tell the story of what daily life looks like here.",
+    "toneGuidance": "Confident, specific, data-backed but conversational. Use real numbers to build credibility. Paint the lifestyle picture with concrete details, not vague promises.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "Bold lifestyle statement or question",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Curiosity"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "Life Here Score",
+        "contentFocus": "Overall score and what it means",
+        "suggestedFormat": "data_point",
+        "emotionalBeat": "Credibility"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "Dining & Social",
+        "contentFocus": "Restaurant count, top cuisines, dining score",
+        "suggestedFormat": "data_point",
+        "emotionalBeat": "Excitement"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "Commute & Access",
+        "contentFocus": "Drive times to key destinations",
+        "suggestedFormat": "data_point",
+        "emotionalBeat": "Convenience"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "Lifestyle & Outdoors",
+        "contentFocus": "Parks, gyms, entertainment options",
+        "suggestedFormat": "data_point",
+        "emotionalBeat": "Aspiration"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "The Ideal Resident",
+        "contentFocus": "Who thrives here - help viewer self-identify",
+        "suggestedFormat": "question",
+        "emotionalBeat": "Belonging"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "Want the full Life Here report? DM me.",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Action"
+      }
+    ],
+    "avoidPhrases": [
+      "It's worth noting",
+      "Nestled in",
+      "Boasts",
+      "Conveniently located",
+      "Prestigious"
+    ],
+    "emphasize": [
+      "specific numbers and scores",
+      "daily lifestyle routines",
+      "real restaurant and venue names",
+      "commute times in minutes"
+    ]
+  },
+  "visualThemes": [
+    "aerial neighborhood shots",
+    "restaurant interiors",
+    "park scenes",
+    "commute route maps",
+    "lifestyle photography"
+  ],
+  "isActive": true,
+  "isSeasonal": false,
+  "usageHints": [
+    "Best when Life Here data is available for the address",
+    "Use real scores and numbers from the location API",
+    "Great for listings where location is the primary selling point",
+    "Pair with property photos that show the surrounding area"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "Downtown Orlando Condo",
+      "situation": "New listing in a walkable downtown area with great dining and nightlife",
+      "sampleInput": "This condo at 123 Rosalind Ave scores 87 on Life Here. 52 restaurants within walking distance, 15 min to the airport, 8 parks nearby.",
+      "expectedOutput": {
+        "hook": "87 out of 100. That is what life looks like here.",
+        "keyMoment": "52 restaurants. 8 parks. 15 minutes to the airport. All from your front door."
+      }
+    }
+  ]
+}

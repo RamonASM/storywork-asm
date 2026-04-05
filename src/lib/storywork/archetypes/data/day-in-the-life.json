@@ -1,0 +1,181 @@
+{
+  "id": "day_in_the_life",
+  "name": "Day in the Life",
+  "version": 1,
+  "pillarId": "the_neighborhood",
+  "pillarName": "The Neighborhood",
+  "controllingIdea": "A neighborhood is not just where you live but how you live.",
+  "emotionalCore": ["aspiration", "lifestyle", "belonging", "imagination"],
+  "narrativeArc": {
+    "incitingIncident": "Morning begins in this neighborhood - the day starts",
+    "risingAction": "Walk through typical daily experiences and routines",
+    "crisis": "The unique rhythm, challenge, or character of this area",
+    "climax": "The moment that defines the lifestyle - the 'this is it' feeling",
+    "resolution": "This could be your life - invitation to imagine"
+  },
+  "triggerMoments": [
+    {
+      "moment": "Spent time in a specific neighborhood",
+      "contextClues": ["morning walk", "weekend in", "exploring", "living here means"],
+      "urgency": "this_week"
+    },
+    {
+      "moment": "Buyer asked what it's like to live there",
+      "contextClues": ["what's it like", "tell me about", "daily life"],
+      "urgency": "this_week"
+    },
+    {
+      "moment": "Seasonal neighborhood activity",
+      "contextClues": ["fall here", "summer nights", "holiday tradition"],
+      "urgency": "same_day"
+    }
+  ],
+  "triggerKeywords": [
+    "day in the life",
+    "morning routine",
+    "what it's like",
+    "living here",
+    "typical day",
+    "lifestyle",
+    "imagine",
+    "weekends here",
+    "neighborhood feel"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What neighborhood or area are you featuring?",
+      "purpose": "Set the scene",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "Downtown Westside, the walkable urban village...",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "What does a typical morning look like for someone living there?",
+      "purpose": "Start the day journey",
+      "narrativeMapping": "risingAction",
+      "placeholder": "Walk to the corner coffee shop, past the park where dogs are playing...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "What's special about the daily rhythm here?",
+      "purpose": "Capture the unique character",
+      "narrativeMapping": "crisis",
+      "placeholder": "You can walk to dinner, grocery shop on foot, never need your car on weekends...",
+      "optional": false
+    },
+    {
+      "id": "q4",
+      "question": "What's the defining moment or experience of living here?",
+      "purpose": "The lifestyle climax",
+      "narrativeMapping": "climax",
+      "placeholder": "Summer evenings on the rooftop bars watching the sunset over the mountains...",
+      "optional": false
+    },
+    {
+      "id": "q5",
+      "question": "Who thrives in this neighborhood?",
+      "purpose": "Help viewers self-identify",
+      "narrativeMapping": "resolution",
+      "placeholder": "Young professionals who value walkability, empty nesters downsizing...",
+      "optional": false
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is a lifestyle aspiration piece. Paint a vivid picture of daily life in a specific area. Help viewers imagine themselves living there.",
+    "toneGuidance": "Evocative, sensory, inviting. Use specific details that bring the place to life. Make them feel the lifestyle.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "The lifestyle promise",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Aspiration"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "Morning",
+        "contentFocus": "How the day starts",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Imagination"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "Daily rhythm",
+        "contentFocus": "The everyday experience",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Lifestyle"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "The magic",
+        "contentFocus": "What makes it special",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Desire"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "Community",
+        "contentFocus": "The people and vibe",
+        "suggestedFormat": "quote",
+        "emotionalBeat": "Belonging"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "Who fits",
+        "contentFocus": "The ideal resident",
+        "suggestedFormat": "question",
+        "emotionalBeat": "Self-identification"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "Ready to explore?",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Action"
+      }
+    ],
+    "avoidPhrases": [
+      "It's worth noting",
+      "Nestled in",
+      "Boasts"
+    ],
+    "emphasize": [
+      "sensory details",
+      "specific places and names",
+      "daily routines",
+      "emotional moments"
+    ]
+  },
+  "visualThemes": [
+    "street scenes",
+    "lifestyle photography",
+    "local spots",
+    "morning light"
+  ],
+  "isActive": true,
+  "isSeasonal": true,
+  "seasonalConfig": {
+    "activeMonths": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "specialEvents": ["summer_vibes", "fall_colors", "holiday_season"]
+  },
+  "usageHints": [
+    "Use specific sensory details",
+    "Focus on one neighborhood per post",
+    "Great for attracting buyers to specific areas",
+    "Seasonal versions work well"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "Walkable Urban Living",
+      "situation": "Showcasing downtown walkable lifestyle",
+      "sampleInput": "Downtown Westside - you wake up, walk to Blue Bottle for coffee, the farmers market is Saturday morning at the plaza. Dinner reservations are a 5-minute walk. You don't touch your car all weekend.",
+      "expectedOutput": {
+        "hook": "Weekend mornings. No car keys needed.",
+        "keyMoment": "Coffee, farmers market, dinner - all within a 10-minute walk."
+      }
+    }
+  ]
+}

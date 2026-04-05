@@ -1,0 +1,190 @@
+{
+  "id": "market_pulse",
+  "name": "Market Pulse",
+  "version": 1,
+  "pillarId": "the_arena",
+  "pillarName": "The Arena",
+  "controllingIdea": "Understanding market rhythms transforms uncertainty into opportunity.",
+  "emotionalCore": ["confidence", "clarity", "expertise", "empowerment"],
+  "narrativeArc": {
+    "incitingIncident": "A market shift, trend, or notable data point emerges",
+    "risingAction": "Data and observation build a clear picture of what's happening",
+    "crisis": "What this means for buyers and sellers - the stakes",
+    "climax": "The strategic insight or recommendation",
+    "resolution": "Actionable wisdom - what to do with this information"
+  },
+  "triggerMoments": [
+    {
+      "moment": "Monthly/quarterly market stats release",
+      "contextClues": ["new data", "stats just came out", "numbers are in"],
+      "urgency": "same_day"
+    },
+    {
+      "moment": "Interest rate changes",
+      "contextClues": ["rates dropped", "fed announcement", "rates going up"],
+      "urgency": "immediate"
+    },
+    {
+      "moment": "Seasonal market shift",
+      "contextClues": ["spring market", "inventory changing", "buyer behavior shifting"],
+      "urgency": "this_week"
+    },
+    {
+      "moment": "Local development news",
+      "contextClues": ["new development", "commercial coming", "neighborhood changing"],
+      "urgency": "this_week"
+    }
+  ],
+  "triggerKeywords": [
+    "market",
+    "rates",
+    "inventory",
+    "prices",
+    "data shows",
+    "trend",
+    "what I'm seeing",
+    "buyers are",
+    "sellers are",
+    "numbers",
+    "stats",
+    "forecast"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What market trend or data point are you sharing?",
+      "purpose": "Establish the insight",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "Inventory is down 30% compared to last year...",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "What are you seeing in your day-to-day work that confirms this?",
+      "purpose": "Ground it in real experience",
+      "narrativeMapping": "risingAction",
+      "placeholder": "Every listing I hold has 10+ offers in the first weekend...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "What does this mean for buyers right now?",
+      "purpose": "Buyer-focused implications",
+      "narrativeMapping": "crisis",
+      "placeholder": "If you're waiting for prices to drop, you might be waiting a while...",
+      "optional": false
+    },
+    {
+      "id": "q4",
+      "question": "What does this mean for sellers right now?",
+      "purpose": "Seller-focused implications",
+      "narrativeMapping": "climax",
+      "placeholder": "If you've been thinking of selling, your timing is excellent...",
+      "optional": false
+    },
+    {
+      "id": "q5",
+      "question": "What's your strategic recommendation?",
+      "purpose": "Actionable advice",
+      "narrativeMapping": "resolution",
+      "placeholder": "Get pre-approved now so you can move fast when you find the right one...",
+      "optional": false
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is an expertise-building piece. The agent demonstrates market knowledge and provides genuine value. The goal is to position as a trusted market advisor.",
+    "toneGuidance": "Confident but not alarmist. Educational without being dry. Make data relatable and actionable.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "The headline insight",
+        "suggestedFormat": "data_point",
+        "emotionalBeat": "Attention"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "The data",
+        "contentFocus": "Key numbers or trends",
+        "suggestedFormat": "data_point",
+        "emotionalBeat": "Credibility"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "Real-world evidence",
+        "contentFocus": "What you're seeing firsthand",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Authenticity"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "For buyers",
+        "contentFocus": "What buyers should know",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Relevance"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "For sellers",
+        "contentFocus": "What sellers should know",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Relevance"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "Strategic insight",
+        "contentFocus": "Your recommendation",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Value"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "Offer to discuss their situation",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Invitation"
+      }
+    ],
+    "avoidPhrases": [
+      "It's worth noting",
+      "In today's market",
+      "Experts say",
+      "Don't miss out"
+    ],
+    "emphasize": [
+      "specific local data",
+      "personal observations",
+      "actionable recommendations",
+      "balanced perspective"
+    ]
+  },
+  "visualThemes": [
+    "charts and graphs",
+    "data visualizations",
+    "market imagery",
+    "local landmarks"
+  ],
+  "isActive": true,
+  "isSeasonal": true,
+  "seasonalConfig": {
+    "activeMonths": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    "specialEvents": ["rate_changes", "quarterly_stats", "year_end"]
+  },
+  "usageHints": [
+    "Use specific local numbers, not national averages",
+    "Ground data in your real observations",
+    "Provide balanced advice for both buyers and sellers",
+    "End with clear next step"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "Low Inventory Alert",
+      "situation": "Inventory at 10-year low in local market",
+      "sampleInput": "Inventory in our area is down to 1.2 months supply - the lowest I've seen in 10 years. Every listing I've held this month had double-digit offers. Buyers need to be ready to move fast.",
+      "expectedOutput": {
+        "hook": "1.2 months of inventory. The lowest in a decade.",
+        "keyMoment": "This isn't about waiting for a better time. It's about being prepared now."
+      }
+    }
+  ]
+}

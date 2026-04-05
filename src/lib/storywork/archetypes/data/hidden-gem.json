@@ -1,0 +1,178 @@
+{
+  "id": "hidden_gem",
+  "name": "Hidden Gem",
+  "version": 1,
+  "pillarId": "the_stage",
+  "pillarName": "The Stage",
+  "controllingIdea": "The best opportunities often hide in plain sight, waiting for those who know where to look.",
+  "emotionalCore": ["discovery", "savvy", "insight", "opportunity"],
+  "narrativeArc": {
+    "incitingIncident": "A property that appears unremarkable at first glance",
+    "risingAction": "Revealing the unexpected features, potential, or value others missed",
+    "crisis": "Why everyone else overlooked it - and why that's their loss",
+    "climax": "The 'aha' moment of recognizing hidden value",
+    "resolution": "Smart buyer's reward - or invitation to be that smart buyer"
+  },
+  "triggerMoments": [
+    {
+      "moment": "Found a property with amazing bones but dated presentation",
+      "contextClues": ["needs work", "ugly duckling", "great bones", "potential"],
+      "urgency": "same_day"
+    },
+    {
+      "moment": "Underpriced property due to poor marketing",
+      "contextClues": ["bad photos", "overpriced then dropped", "no one noticed"],
+      "urgency": "immediate"
+    },
+    {
+      "moment": "Great location overshadowed by cosmetic issues",
+      "contextClues": ["location is perfect", "just needs", "overlook the"],
+      "urgency": "same_day"
+    }
+  ],
+  "triggerKeywords": [
+    "hidden gem",
+    "overlooked",
+    "don't let the photos fool you",
+    "potential",
+    "great bones",
+    "if you can see past",
+    "undervalued",
+    "sleeper",
+    "insider tip",
+    "most people miss"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What's unremarkable about this property at first glance?",
+      "purpose": "Set up the contrast",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "The listing photos are terrible and it's been on market 90 days...",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "What did you discover that others missed?",
+      "purpose": "The reveal",
+      "narrativeMapping": "risingAction",
+      "placeholder": "The backyard has an unpermitted ADU that's nearly finished...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "Why do you think others overlooked it?",
+      "purpose": "Build the 'insider' angle",
+      "narrativeMapping": "crisis",
+      "placeholder": "Everyone saw the dated kitchen and walked away before seeing the basement...",
+      "optional": true
+    },
+    {
+      "id": "q4",
+      "question": "What's the real value or opportunity here?",
+      "purpose": "Quantify the hidden value",
+      "narrativeMapping": "climax",
+      "placeholder": "It's priced $80k below similar homes because of the cosmetic issues...",
+      "optional": false
+    },
+    {
+      "id": "q5",
+      "question": "Who should be paying attention to this?",
+      "purpose": "Target the right buyer",
+      "narrativeMapping": "resolution",
+      "placeholder": "Investor who can see past paint colors, or handy buyer who wants instant equity...",
+      "optional": false
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is a discovery story about a property most people dismissed. Position the agent as the insider who sees what others don't. The tone should feel like sharing a secret.",
+    "toneGuidance": "Knowing, slightly conspiratorial, but backed by facts. You're letting people in on something others missed.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "The surprising contrast",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Intrigue"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "The surface",
+        "contentFocus": "What most people see",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Setup"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "The discovery",
+        "contentFocus": "What's hidden beneath",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Revelation"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "The numbers",
+        "contentFocus": "The value opportunity",
+        "suggestedFormat": "data_point",
+        "emotionalBeat": "Opportunity"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "Why overlooked",
+        "contentFocus": "Others' blind spots",
+        "suggestedFormat": "question",
+        "emotionalBeat": "Insight"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "The ideal buyer",
+        "contentFocus": "Who this is perfect for",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Targeting"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "Act now before others catch on",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Urgency"
+      }
+    ],
+    "avoidPhrases": [
+      "It's worth noting",
+      "In today's market",
+      "Nestled in"
+    ],
+    "emphasize": [
+      "contrast between surface and reality",
+      "specific hidden value",
+      "numbers that prove the opportunity",
+      "insider perspective"
+    ]
+  },
+  "visualThemes": [
+    "before/potential after",
+    "detail shots of hidden features",
+    "location context",
+    "data overlays showing value"
+  ],
+  "isActive": true,
+  "isSeasonal": false,
+  "usageHints": [
+    "Best for properties with clear but overlooked value",
+    "Include specific numbers when possible",
+    "Position yourself as the agent who sees deeper",
+    "Great for attracting investor clients"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "90 Days on Market Diamond",
+      "situation": "Home with terrible photos sitting ignored but great location",
+      "sampleInput": "This house has been on market 90 days with zero offers. The photos are dark and show clutter. But it's on a half-acre in the best school district, and it's priced $50k under comps. Just needs staging.",
+      "expectedOutput": {
+        "hook": "90 days. Zero offers. Here's what everyone missed.",
+        "keyMoment": "$50k under comps. Half acre. Best school district."
+      }
+    }
+  ]
+}

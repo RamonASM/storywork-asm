@@ -1,0 +1,180 @@
+{
+  "id": "behind_the_deal",
+  "name": "Behind the Deal",
+  "version": 1,
+  "pillarId": "the_craft",
+  "pillarName": "The Craft",
+  "controllingIdea": "The work that happens off-stage often determines on-stage success.",
+  "emotionalCore": ["satisfaction", "competence", "trust", "gratitude"],
+  "narrativeArc": {
+    "incitingIncident": "A deal closes - but there's more to the story than meets the eye",
+    "risingAction": "Reveal the hidden challenges that nearly derailed everything",
+    "crisis": "The moment that could have ended the deal",
+    "climax": "How expertise and effort saved the day",
+    "resolution": "Client is home, lessons are crystallized, trust is earned"
+  },
+  "triggerMoments": [
+    {
+      "moment": "Just closed on a property",
+      "contextClues": ["just closed", "keys", "closed today", "officially homeowners"],
+      "urgency": "immediate"
+    },
+    {
+      "moment": "Resolved a challenging transaction issue",
+      "contextClues": ["saved the deal", "worked out", "negotiated", "figured out"],
+      "urgency": "same_day"
+    },
+    {
+      "moment": "Client sent appreciation message",
+      "contextClues": ["thank you", "grateful", "couldn't have done it", "amazing experience"],
+      "urgency": "this_week"
+    }
+  ],
+  "triggerKeywords": [
+    "just closed",
+    "finally closed",
+    "what a journey",
+    "learned",
+    "challenging",
+    "almost fell apart",
+    "saved",
+    "behind the scenes",
+    "what you don't see",
+    "the real story",
+    "keys in hand"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "Tell us about the client and their initial goals.",
+      "purpose": "Set up the characters and stakes",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "First-time buyers looking for a starter home under $400k...",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "What hidden challenge or surprise came up during the transaction?",
+      "purpose": "Introduce the conflict",
+      "narrativeMapping": "risingAction",
+      "placeholder": "Inspection revealed foundation issues that the seller didn't disclose...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "What was the moment it could have fallen apart?",
+      "purpose": "The crisis point",
+      "narrativeMapping": "crisis",
+      "placeholder": "The seller refused to negotiate and we were 48 hours from losing earnest money...",
+      "optional": true
+    },
+    {
+      "id": "q4",
+      "question": "How did you navigate and resolve the challenge?",
+      "purpose": "Show expertise and value",
+      "narrativeMapping": "climax",
+      "placeholder": "I brought in a structural engineer and negotiated a $15k credit...",
+      "optional": false
+    },
+    {
+      "id": "q5",
+      "question": "What was the final outcome and what insight would you share?",
+      "purpose": "Deliver resolution and wisdom",
+      "narrativeMapping": "resolution",
+      "placeholder": "They closed last Friday and are thrilled. The lesson: always get a thorough inspection...",
+      "optional": false
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is a competence story. Show the agent's value through a specific challenge they navigated. The goal is to build trust by revealing expertise.",
+    "toneGuidance": "Professional but personable. Show skill without arrogance. Let the problem-solving speak for itself.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "The surface story vs. hidden reality",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Curiosity"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "Client intro",
+        "contentFocus": "Who they are and what they wanted",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Relatability"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "The challenge",
+        "contentFocus": "What went wrong or could have",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Tension"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "The crisis",
+        "contentFocus": "The moment of highest stakes",
+        "suggestedFormat": "question",
+        "emotionalBeat": "Suspense"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "The solution",
+        "contentFocus": "How you solved it",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Competence"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "The outcome",
+        "contentFocus": "Happy ending",
+        "suggestedFormat": "quote",
+        "emotionalBeat": "Satisfaction"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "The lesson and invitation",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Trust"
+      }
+    ],
+    "avoidPhrases": [
+      "I'm so honored",
+      "It's worth noting",
+      "I saved the day",
+      "Without me they would have"
+    ],
+    "emphasize": [
+      "specific challenge details",
+      "concrete actions taken",
+      "client outcome",
+      "transferable lesson"
+    ]
+  },
+  "visualThemes": [
+    "closing day photos",
+    "keys in hand",
+    "happy clients at new home",
+    "before/after of the challenge"
+  ],
+  "isActive": true,
+  "isSeasonal": false,
+  "usageHints": [
+    "Wait until client is comfortable sharing the story",
+    "Focus on one specific challenge, not every hiccup",
+    "The lesson should be useful to future clients",
+    "Don't oversell your role - let the story show your value"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "Appraisal Gap Crisis",
+      "situation": "Home appraised $30k under contract price, threatening to kill the deal",
+      "sampleInput": "My buyers were under contract at $530k but the appraisal came in at $500k. Sellers wouldn't budge. I pulled comps, wrote a rebuttal, and got it reappraised at $525k. We split the remaining $5k.",
+      "expectedOutput": {
+        "hook": "The appraisal came back $30k short. Here's what happened next.",
+        "keyMoment": "A thorough rebuttal and the right comps changed everything."
+      }
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "id": "battle_tested",
+  "name": "Battle Tested",
+  "version": 1,
+  "pillarId": "the_arena",
+  "pillarName": "The Arena",
+  "controllingIdea": "In competitive markets, preparation and strategy beat panic and impulse.",
+  "emotionalCore": ["strategy", "confidence", "protection", "victory"],
+  "narrativeArc": {
+    "incitingIncident": "An intensely competitive scenario - bidding war, multiple offers, tough negotiation",
+    "risingAction": "Tactics deployed, tension builds, competitors emerge",
+    "crisis": "The deciding moment - what strategy wins?",
+    "climax": "Strategy pays off - the win is secured",
+    "resolution": "Wisdom for future battles - what can others learn?"
+  },
+  "triggerMoments": [
+    {
+      "moment": "Just won a bidding war",
+      "contextClues": ["won", "beat out", "got it", "offer accepted"],
+      "urgency": "immediate"
+    },
+    {
+      "moment": "Successfully negotiated tough seller",
+      "contextClues": ["negotiated", "got them to", "they agreed"],
+      "urgency": "same_day"
+    },
+    {
+      "moment": "Helped client avoid competitive mistakes",
+      "contextClues": ["almost", "glad we didn't", "my advice was"],
+      "urgency": "this_week"
+    }
+  ],
+  "triggerKeywords": [
+    "bidding war",
+    "multiple offers",
+    "beat out",
+    "strategy",
+    "negotiated",
+    "competitive",
+    "won",
+    "fought",
+    "protected",
+    "outmaneuvered"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What was the competitive situation your client faced?",
+      "purpose": "Set up the battle",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "There were 15 offers on the table, including several all-cash...",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "What tactics or strategies did you deploy?",
+      "purpose": "Show expertise",
+      "narrativeMapping": "risingAction",
+      "placeholder": "We wrote an escalation clause, shortened inspection period, and...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "What was the deciding factor that secured the win?",
+      "purpose": "The strategic insight",
+      "narrativeMapping": "climax",
+      "placeholder": "The seller valued the personal letter more than the highest offer...",
+      "optional": false
+    },
+    {
+      "id": "q4",
+      "question": "What would you tell other buyers facing similar competition?",
+      "purpose": "Transferable wisdom",
+      "narrativeMapping": "resolution",
+      "placeholder": "It's not always about being the highest. It's about understanding what the seller values...",
+      "optional": false
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is a strategic victory story. The agent demonstrates competitive expertise. Focus on the tactics and thinking that led to success.",
+    "toneGuidance": "Strategic, confident, but not cocky. This is about smart preparation, not luck. Share wisdom others can use.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "The competition intensity",
+        "suggestedFormat": "data_point",
+        "emotionalBeat": "Stakes"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "The battlefield",
+        "contentFocus": "What they were up against",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Challenge"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "Strategy 1",
+        "contentFocus": "First tactical move",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Expertise"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "Strategy 2",
+        "contentFocus": "Second tactical move",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Competence"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "The win",
+        "contentFocus": "What made the difference",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Victory"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "The lesson",
+        "contentFocus": "Wisdom for others",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Education"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "Ready for your battle?",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Confidence"
+      }
+    ],
+    "avoidPhrases": [
+      "I crushed it",
+      "Destroyed the competition",
+      "It's worth noting"
+    ],
+    "emphasize": [
+      "specific tactics used",
+      "thinking behind decisions",
+      "what others can learn",
+      "client protection"
+    ]
+  },
+  "visualThemes": [
+    "victory celebration",
+    "strategy visuals",
+    "keys handover",
+    "data showing competition"
+  ],
+  "isActive": true,
+  "isSeasonal": false,
+  "usageHints": [
+    "Focus on 2-3 specific tactics, not everything",
+    "Make the lesson applicable to others",
+    "Show strategic thinking, not just luck",
+    "Position as protector and strategist"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "15 Offers, One Winner",
+      "situation": "Buyers won against 14 other offers through smart strategy",
+      "sampleInput": "My buyers were up against 14 other offers including 5 all-cash. We won with an escalation clause up to $20k over asking, flexible closing date, and a personal letter. Turned out the seller's son went to the same school as my client.",
+      "expectedOutput": {
+        "hook": "15 offers. 5 all-cash. We won. Here's how.",
+        "keyMoment": "Sometimes it's not the highest offer. It's the right connection."
+      }
+    }
+  ]
+}

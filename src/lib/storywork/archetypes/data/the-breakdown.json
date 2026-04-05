@@ -1,0 +1,179 @@
+{
+  "id": "the_breakdown",
+  "name": "The Breakdown",
+  "version": 1,
+  "pillarId": "the_craft",
+  "pillarName": "The Craft",
+  "controllingIdea": "Complex processes become manageable when broken into understandable pieces.",
+  "emotionalCore": ["clarity", "empowerment", "trust", "confidence"],
+  "narrativeArc": {
+    "incitingIncident": "A common question, confusion, or misconception identified",
+    "risingAction": "Step-by-step explanation builds understanding",
+    "crisis": "The tricky part that most people miss or get wrong",
+    "climax": "The key insight that changes everything",
+    "resolution": "Empowered audience ready to act with confidence"
+  },
+  "triggerMoments": [
+    {
+      "moment": "Client asked a common question",
+      "contextClues": ["everyone asks", "clients always wonder", "most people don't know"],
+      "urgency": "this_week"
+    },
+    {
+      "moment": "Explaining a process milestone",
+      "contextClues": ["here's how", "let me explain", "the process works like"],
+      "urgency": "anytime"
+    },
+    {
+      "moment": "Clearing up industry jargon",
+      "contextClues": ["what is", "means", "jargon", "confused by"],
+      "urgency": "anytime"
+    }
+  ],
+  "triggerKeywords": [
+    "how does",
+    "what is",
+    "explain",
+    "breakdown",
+    "process",
+    "step by step",
+    "guide",
+    "here's how",
+    "most people",
+    "common question",
+    "let me explain"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What concept, process, or term are you explaining?",
+      "purpose": "Identify the topic",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "What happens during the inspection period...",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "Why do people find this confusing or ask about it often?",
+      "purpose": "Establish relevance",
+      "narrativeMapping": "risingAction",
+      "placeholder": "Most buyers don't realize they can walk away during this time...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "What's the key thing most people miss or get wrong?",
+      "purpose": "The crucial insight",
+      "narrativeMapping": "crisis",
+      "placeholder": "They think the inspection is just about finding problems, but it's really about...",
+      "optional": false
+    },
+    {
+      "id": "q4",
+      "question": "What's your insider tip or recommendation?",
+      "purpose": "Value-add advice",
+      "narrativeMapping": "climax",
+      "placeholder": "Always attend the inspection in person. You'll learn so much about your home...",
+      "optional": false
+    },
+    {
+      "id": "q5",
+      "question": "What should someone do with this information?",
+      "purpose": "Call to action",
+      "narrativeMapping": "resolution",
+      "placeholder": "If you're under contract, schedule that inspector walkthrough...",
+      "optional": true
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is an educational piece. The agent positions as a helpful teacher. Focus on clarity, simplicity, and genuine value. Avoid jargon.",
+    "toneGuidance": "Friendly expert explaining to a friend. Patient, clear, not condescending. Make complex things simple.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "The question everyone asks",
+        "suggestedFormat": "question",
+        "emotionalBeat": "Recognition"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "Why it matters",
+        "contentFocus": "Stakes of understanding this",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Importance"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "Step 1",
+        "contentFocus": "First part of explanation",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Clarity"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "Step 2",
+        "contentFocus": "Second part",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Building"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "The trick",
+        "contentFocus": "What most people miss",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Insight"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "Pro tip",
+        "contentFocus": "Insider recommendation",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Value"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "Save this / share / ask me more",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Engagement"
+      }
+    ],
+    "avoidPhrases": [
+      "It's worth noting",
+      "Obviously",
+      "As you know"
+    ],
+    "emphasize": [
+      "simple explanations",
+      "practical examples",
+      "insider tips",
+      "clear next steps"
+    ]
+  },
+  "visualThemes": [
+    "infographics",
+    "numbered steps",
+    "icons and diagrams",
+    "clean educational design"
+  ],
+  "isActive": true,
+  "isSeasonal": false,
+  "usageHints": [
+    "Great for evergreen content that can be reused",
+    "Keep each slide to ONE concept",
+    "Use examples from real situations",
+    "End with a save/share CTA"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "What Happens After Your Offer is Accepted",
+      "situation": "Explaining the contract-to-close timeline",
+      "sampleInput": "Clients always wonder what happens between offer acceptance and closing. I want to explain the inspection period, appraisal, and clear-to-close steps in simple terms.",
+      "expectedOutput": {
+        "hook": "Offer accepted. Now what? Here's exactly what happens next.",
+        "keyMoment": "The inspection period is your last easy exit. Use it wisely."
+      }
+    }
+  ]
+}

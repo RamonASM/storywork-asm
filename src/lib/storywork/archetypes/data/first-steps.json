@@ -1,0 +1,180 @@
+{
+  "id": "first_steps",
+  "name": "First Steps",
+  "version": 1,
+  "pillarId": "the_hunt",
+  "pillarName": "The Hunt",
+  "controllingIdea": "The first home purchase is a rite of passage that changes a person's relationship with the world.",
+  "emotionalCore": ["empowerment", "pride", "belonging", "independence"],
+  "narrativeArc": {
+    "incitingIncident": "Client realizes renting is no longer working - the decision to buy",
+    "risingAction": "Education phase, overcoming fear, myths, and self-doubt",
+    "crisis": "The 'can we really do this?' moment of hesitation",
+    "climax": "Finding THE one and committing - the leap of faith",
+    "resolution": "Keys in hand, identity transformed, new chapter begins"
+  },
+  "triggerMoments": [
+    {
+      "moment": "First-time buyer just closed",
+      "contextClues": ["first home", "first-time buyer", "never owned", "renting forever"],
+      "urgency": "immediate"
+    },
+    {
+      "moment": "First consultation with nervous renters",
+      "contextClues": ["scared", "nervous", "ready to stop renting", "thinking about buying"],
+      "urgency": "this_week"
+    },
+    {
+      "moment": "Pre-approval celebration",
+      "contextClues": ["pre-approved", "qualified", "can actually afford", "didn't think possible"],
+      "urgency": "same_day"
+    }
+  ],
+  "triggerKeywords": [
+    "first home",
+    "first-time",
+    "never bought before",
+    "scared but",
+    "ready to stop renting",
+    "finally ready",
+    "took the leap",
+    "can't believe",
+    "homeowner",
+    "adulting",
+    "milestone",
+    "dream come true"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "Tell us about your first-time buyer - where were they starting from?",
+      "purpose": "Establish the starting point and relatability",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "They were paying $2,800 in rent and thought homeownership was out of reach...",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "What fears or misconceptions did they have about buying?",
+      "purpose": "Build relatability for other first-time buyers",
+      "narrativeMapping": "risingAction",
+      "placeholder": "They thought they needed 20% down and perfect credit...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "What was their biggest 'aha moment' in the process?",
+      "purpose": "Educational turning point",
+      "narrativeMapping": "crisis",
+      "placeholder": "When they realized their mortgage payment would be less than rent...",
+      "optional": true
+    },
+    {
+      "id": "q4",
+      "question": "How did it feel when they got the keys?",
+      "purpose": "Emotional climax",
+      "narrativeMapping": "climax",
+      "placeholder": "She cried. He couldn't stop smiling. Their dog ran through every room...",
+      "optional": false
+    },
+    {
+      "id": "q5",
+      "question": "What would you tell other renters who are hesitating?",
+      "purpose": "CTA for future first-time buyers",
+      "narrativeMapping": "resolution",
+      "placeholder": "Stop paying someone else's mortgage. You're probably more ready than you think...",
+      "optional": false
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is a coming-of-age story. A first-time buyer overcomes fear and achieves homeownership. Focus on the emotional transformation and make it relatable to other renters.",
+    "toneGuidance": "Encouraging, warm, and celebratory. Speak directly to other renters who are hesitating. Make homeownership feel achievable.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "The transformation from renter to owner",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Inspiration"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "The starting point",
+        "contentFocus": "Where they were (renting, doubting)",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Relatability"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "The fears",
+        "contentFocus": "Common misconceptions addressed",
+        "suggestedFormat": "question",
+        "emotionalBeat": "Validation"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "The aha moment",
+        "contentFocus": "What changed their mindset",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Education"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "The keys",
+        "contentFocus": "The emotional moment",
+        "suggestedFormat": "quote",
+        "emotionalBeat": "Joy"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "The new reality",
+        "contentFocus": "Life as a homeowner",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Pride"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "Invitation to hesitant renters",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Encouragement"
+      }
+    ],
+    "avoidPhrases": [
+      "Don't wait",
+      "It's worth noting",
+      "In this market"
+    ],
+    "emphasize": [
+      "emotional journey",
+      "overcoming specific fears",
+      "relatable moments",
+      "invitation to action"
+    ]
+  },
+  "visualThemes": [
+    "keys in hand",
+    "front door moment",
+    "happy couple/individual at new home",
+    "before (apartment) and after (house)"
+  ],
+  "isActive": true,
+  "isSeasonal": false,
+  "usageHints": [
+    "Perfect for attracting more first-time buyer clients",
+    "Address specific misconceptions (down payment, credit, etc.)",
+    "The emotional moment is the highlight",
+    "End with encouragement for others in similar situations"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "From $2,500 Rent to First Home",
+      "situation": "Couple thought they couldn't afford to buy, discovered they were wrong",
+      "sampleInput": "This couple was paying $2,500/month in rent and thought they needed $100k saved to buy. I showed them FHA options and they got into their first home with just $15k down. Their mortgage is $2,200.",
+      "expectedOutput": {
+        "hook": "$2,500 rent. $100k savings myth. Zero homeownership.",
+        "keyMoment": "Their mortgage is $300 less than their old rent."
+      }
+    }
+  ]
+}

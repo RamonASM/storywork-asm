@@ -1,0 +1,189 @@
+{
+  "id": "fresh_drop",
+  "name": "Fresh Drop",
+  "version": 1,
+  "pillarId": "the_stage",
+  "pillarName": "The Stage",
+  "controllingIdea": "Every property has a story waiting for the right person to live it.",
+  "emotionalCore": ["anticipation", "excitement", "aspiration", "possibility"],
+  "narrativeArc": {
+    "incitingIncident": "A new property hits the market or is coming soon - a fresh opportunity emerges",
+    "risingAction": "Features and details are progressively revealed, building interest and desire",
+    "crisis": "Limited time or exclusive opportunity creates urgency",
+    "climax": "The 'imagine yourself here' moment - visualizing life in this home",
+    "resolution": "Clear path to action - how to see it, make it yours"
+  },
+  "triggerMoments": [
+    {
+      "moment": "Just signed a new listing",
+      "contextClues": ["new listing", "just listed", "hitting the market", "signed"],
+      "urgency": "immediate"
+    },
+    {
+      "moment": "Coming soon property announcement",
+      "contextClues": ["coming soon", "exclusive", "first look", "before it hits"],
+      "urgency": "immediate"
+    },
+    {
+      "moment": "Price improvement on a listing",
+      "contextClues": ["price drop", "new price", "reduced", "price improvement"],
+      "urgency": "same_day"
+    },
+    {
+      "moment": "Open house announcement",
+      "contextClues": ["open house", "this weekend", "come see", "showing"],
+      "urgency": "same_day"
+    }
+  ],
+  "triggerKeywords": [
+    "just listed",
+    "new listing",
+    "coming soon",
+    "hitting the market",
+    "beautiful",
+    "stunning",
+    "can't wait to show",
+    "excited about",
+    "gorgeous",
+    "perfect for",
+    "dream home",
+    "must see",
+    "open house"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What makes this property special or unique?",
+      "purpose": "Establish the hook and main selling point",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "It has a chef's kitchen with a 12-foot island and views of the mountains...",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "What are the top 3 features buyers will love?",
+      "purpose": "Build desire through specific details",
+      "narrativeMapping": "risingAction",
+      "placeholder": "Primary suite with spa bathroom, backyard oasis with pool, gourmet kitchen...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "Describe the neighborhood and lifestyle it offers.",
+      "purpose": "Paint the picture of life here",
+      "narrativeMapping": "climax",
+      "placeholder": "Walking distance to downtown, top-rated schools, quiet tree-lined streets...",
+      "optional": false
+    },
+    {
+      "id": "q4",
+      "question": "Who is the ideal buyer for this home?",
+      "purpose": "Help viewers self-identify",
+      "narrativeMapping": "crisis",
+      "placeholder": "Young professionals who want space to entertain, or a growing family...",
+      "optional": true
+    },
+    {
+      "id": "q5",
+      "question": "What would you say to someone considering this property?",
+      "purpose": "Create the CTA and urgency",
+      "narrativeMapping": "resolution",
+      "placeholder": "This won't last long in this market - schedule a private showing today...",
+      "optional": false
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is a property showcase. The goal is to generate excitement and interest in a new listing. Focus on features that create emotional connection.",
+    "toneGuidance": "Enthusiastic but not pushy. Let the property speak for itself. Paint a picture of lifestyle, not just features.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "The headline feature or feeling",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Curiosity and desire"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "Context",
+        "contentFocus": "Location and price point",
+        "suggestedFormat": "data_point",
+        "emotionalBeat": "Grounding and possibility"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "Feature 1",
+        "contentFocus": "Standout feature",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Excitement"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "Feature 2",
+        "contentFocus": "Lifestyle feature",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Aspiration"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "Neighborhood",
+        "contentFocus": "Community and lifestyle",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Belonging"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "Ideal buyer",
+        "contentFocus": "Who this is perfect for",
+        "suggestedFormat": "question",
+        "emotionalBeat": "Self-identification"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "How to see it / next steps",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Action and urgency"
+      }
+    ],
+    "avoidPhrases": [
+      "Don't miss out",
+      "Act now before it's too late",
+      "This stunning property",
+      "Nestled in",
+      "Boasts"
+    ],
+    "emphasize": [
+      "specific unique features",
+      "lifestyle and feeling",
+      "neighborhood character",
+      "who would thrive here"
+    ]
+  },
+  "visualThemes": [
+    "hero exterior shot",
+    "kitchen focal point",
+    "outdoor living space",
+    "neighborhood scenes",
+    "lifestyle vignettes"
+  ],
+  "isActive": true,
+  "isSeasonal": false,
+  "usageHints": [
+    "Post when listing goes live or just before for coming soon",
+    "Focus on 2-3 standout features, not every detail",
+    "Include price point early to qualify viewers",
+    "Lifestyle > Features in copy"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "Modern Farmhouse in Hot Neighborhood",
+      "situation": "New construction in a desirable area with unique design",
+      "sampleInput": "Just listed this incredible modern farmhouse. 4 beds, 3.5 baths, 3200 sqft. The kitchen has a 15-foot island and commercial-grade appliances. Backyard has a covered patio with built-in BBQ. Walking distance to the village.",
+      "expectedOutput": {
+        "hook": "Where modern meets farmhouse. And a 15-foot island.",
+        "keyMoment": "Mornings at the village. Evenings on that patio."
+      }
+    }
+  ]
+}

@@ -1,0 +1,177 @@
+{
+  "id": "the_return",
+  "name": "The Return",
+  "version": 1,
+  "pillarId": "the_hunt",
+  "pillarName": "The Hunt",
+  "controllingIdea": "Sometimes life brings us full circle, and home means returning to where we truly belong.",
+  "emotionalCore": ["nostalgia", "belonging", "renewal", "homecoming"],
+  "narrativeArc": {
+    "incitingIncident": "Client needs to move back - family, career, retirement, or drawn by roots",
+    "risingAction": "Nostalgia meets reality of a changed market and neighborhood",
+    "crisis": "Can they afford or find home in the place they love? Is it the same?",
+    "climax": "Discovery of the right home for this new chapter",
+    "resolution": "Welcomed back, new roots in familiar soil, circle complete"
+  },
+  "triggerMoments": [
+    {
+      "moment": "Client relocating back to hometown",
+      "contextClues": ["moving back", "coming home", "returning to", "where I grew up"],
+      "urgency": "this_week"
+    },
+    {
+      "moment": "Empty nesters downsizing to old neighborhood",
+      "contextClues": ["downsizing", "kids moved out", "back to where we started"],
+      "urgency": "this_week"
+    },
+    {
+      "moment": "Moving near aging parents",
+      "contextClues": ["near parents", "family close", "want to be there for"],
+      "urgency": "this_week"
+    }
+  ],
+  "triggerKeywords": [
+    "coming home",
+    "moving back",
+    "returning",
+    "full circle",
+    "where I grew up",
+    "near family",
+    "back to roots",
+    "missed",
+    "always wanted to return",
+    "finally coming back"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "Why is your client returning to this area?",
+      "purpose": "Establish the motivation and emotional core",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "Her parents are getting older and she wants to be closer...",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "What memories or connections do they have with this place?",
+      "purpose": "Build the emotional backstory",
+      "narrativeMapping": "risingAction",
+      "placeholder": "She grew up here, went to the local high school, met her husband here...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "What surprised them about searching for a home here now?",
+      "purpose": "The reality check moment",
+      "narrativeMapping": "crisis",
+      "placeholder": "Prices have tripled since she left, the old neighborhood is so different...",
+      "optional": true
+    },
+    {
+      "id": "q4",
+      "question": "What made this particular home the right one for their return?",
+      "purpose": "The discovery moment",
+      "narrativeMapping": "climax",
+      "placeholder": "It's two blocks from her childhood home and has a guest suite for her parents...",
+      "optional": false
+    },
+    {
+      "id": "q5",
+      "question": "How does it feel to be home again?",
+      "purpose": "Emotional resolution",
+      "narrativeMapping": "resolution",
+      "placeholder": "She says her kids will grow up knowing their grandparents, just like she did...",
+      "optional": false
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is a homecoming story. Someone is returning to a place that holds meaning. Focus on the emotional journey and the sense of belonging that comes from coming full circle.",
+    "toneGuidance": "Warm, nostalgic, but grounded in present reality. This isn't just about the past - it's about a new chapter in a meaningful place.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "The return/homecoming theme",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Resonance"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "The backstory",
+        "contentFocus": "Why this place matters",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Nostalgia"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "The journey away",
+        "contentFocus": "What happened in between",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Journey"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "The call to return",
+        "contentFocus": "What drew them back",
+        "suggestedFormat": "quote",
+        "emotionalBeat": "Purpose"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "The new home",
+        "contentFocus": "Finding the right place",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Discovery"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "Full circle",
+        "contentFocus": "The meaning of being home",
+        "suggestedFormat": "quote",
+        "emotionalBeat": "Fulfillment"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "Invitation for others considering return",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Connection"
+      }
+    ],
+    "avoidPhrases": [
+      "Don't miss out",
+      "It's worth noting"
+    ],
+    "emphasize": [
+      "personal history",
+      "family connections",
+      "the meaning of place",
+      "new chapter in familiar territory"
+    ]
+  },
+  "visualThemes": [
+    "hometown landmarks",
+    "generational photos",
+    "family gatherings",
+    "neighborhood scenes"
+  ],
+  "isActive": true,
+  "isSeasonal": false,
+  "usageHints": [
+    "Great for clients moving back for family reasons",
+    "Focus on the 'why' - the deeper meaning of the return",
+    "Connect past and present",
+    "Speaks to others considering similar moves"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "Back to Care for Parents",
+      "situation": "Woman returns after 20 years to be near aging parents",
+      "sampleInput": "She left for college 20 years ago and built a career in Chicago. Now her parents need help and she realized she missed Sunday dinners more than city life. Found a place with an in-law suite.",
+      "expectedOutput": {
+        "hook": "She left 20 years ago. She came back for Sunday dinners.",
+        "keyMoment": "Some things are worth more than a corner office."
+      }
+    }
+  ]
+}

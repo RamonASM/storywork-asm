@@ -1,0 +1,178 @@
+{
+  "id": "local_legend",
+  "name": "Local Legend",
+  "version": 1,
+  "pillarId": "the_neighborhood",
+  "pillarName": "The Neighborhood",
+  "controllingIdea": "Every neighborhood has stories that transform addresses into destinations.",
+  "emotionalCore": ["discovery", "community", "authenticity", "belonging"],
+  "narrativeArc": {
+    "incitingIncident": "A local business, person, place, or tradition introduced",
+    "risingAction": "History, character, and community role revealed",
+    "crisis": "Why this matters to residents - the deeper meaning",
+    "climax": "The experience of engaging with it",
+    "resolution": "Invitation to discover for yourself"
+  },
+  "triggerMoments": [
+    {
+      "moment": "Visited a great local spot",
+      "contextClues": ["best coffee", "hidden spot", "local favorite", "discovered"],
+      "urgency": "this_week"
+    },
+    {
+      "moment": "Met an interesting community member",
+      "contextClues": ["talked to", "owner told me", "local legend", "everyone knows"],
+      "urgency": "this_week"
+    },
+    {
+      "moment": "Local event attended",
+      "contextClues": ["farmers market", "festival", "community event", "tradition"],
+      "urgency": "same_day"
+    }
+  ],
+  "triggerKeywords": [
+    "local",
+    "favorite spot",
+    "hidden gem",
+    "community",
+    "neighborhood",
+    "tradition",
+    "family-owned",
+    "best kept secret",
+    "everyone goes to",
+    "institution"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "What local spot, person, or tradition are you featuring?",
+      "purpose": "Introduce the subject",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "Mario's Bakery has been on Main Street for 40 years...",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "What's the story or history behind it?",
+      "purpose": "Build depth",
+      "narrativeMapping": "risingAction",
+      "placeholder": "Mario came from Italy in 1984 and started with a single bread recipe...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "What do locals love about it that visitors might miss?",
+      "purpose": "Insider knowledge",
+      "narrativeMapping": "crisis",
+      "placeholder": "Everyone knows about the croissants, but the real secret is the Saturday morning focaccia...",
+      "optional": false
+    },
+    {
+      "id": "q4",
+      "question": "What makes this meaningful to the community?",
+      "purpose": "Emotional connection",
+      "narrativeMapping": "climax",
+      "placeholder": "It's where everyone goes after Little League games. Kids grow up here...",
+      "optional": true
+    },
+    {
+      "id": "q5",
+      "question": "What would you tell someone visiting for the first time?",
+      "purpose": "Invitation and recommendation",
+      "narrativeMapping": "resolution",
+      "placeholder": "Go on a Saturday morning, get the focaccia, and sit on the patio...",
+      "optional": false
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is a community-building piece. Position the agent as a true local who knows the neighborhood beyond listings. It's about lifestyle and belonging.",
+    "toneGuidance": "Enthusiastic local guide sharing insider knowledge. Warm, authentic, not promotional. Let the love for the area show.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "The local legend intro",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Curiosity"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "The story",
+        "contentFocus": "History or background",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Interest"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "What makes it special",
+        "contentFocus": "Unique character",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Appreciation"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "Insider tip",
+        "contentFocus": "What locals know",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Inclusion"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "Community meaning",
+        "contentFocus": "Why it matters here",
+        "suggestedFormat": "quote",
+        "emotionalBeat": "Belonging"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "Your experience",
+        "contentFocus": "Personal touch",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Authenticity"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "Invitation to visit or explore",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Action"
+      }
+    ],
+    "avoidPhrases": [
+      "It's worth noting",
+      "Nestled in",
+      "Hidden gem"
+    ],
+    "emphasize": [
+      "specific details and names",
+      "personal experiences",
+      "community connections",
+      "invitation to explore"
+    ]
+  },
+  "visualThemes": [
+    "local business photos",
+    "community scenes",
+    "food/drink shots",
+    "neighborhood landmarks"
+  ],
+  "isActive": true,
+  "isSeasonal": false,
+  "usageHints": [
+    "Great for positioning as a true local expert",
+    "Visit and photograph yourself - authenticity matters",
+    "Include specific recommendations",
+    "Tag the local business when posting"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "The 40-Year-Old Bakery",
+      "situation": "Featuring a beloved local institution",
+      "sampleInput": "Mario's Bakery has been on the corner of Main and 5th for 40 years. Mario came from Naples and still uses his grandmother's recipes. The Saturday focaccia sells out by 9am. Every kid in this neighborhood has celebrated a birthday with his cakes.",
+      "expectedOutput": {
+        "hook": "40 years. One corner. Every birthday cake you remember.",
+        "keyMoment": "The focaccia sells out by 9am. Set your alarm."
+      }
+    }
+  ]
+}

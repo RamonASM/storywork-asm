@@ -1,0 +1,178 @@
+{
+  "id": "why_i_do_this",
+  "name": "Why I Do This",
+  "version": 1,
+  "pillarId": "the_mirror",
+  "pillarName": "The Mirror",
+  "controllingIdea": "Purpose-driven work creates meaning for both the agent and those they serve.",
+  "emotionalCore": ["purpose", "authenticity", "connection", "passion"],
+  "narrativeArc": {
+    "incitingIncident": "The question of 'why' is posed - why real estate?",
+    "risingAction": "Origin story or defining moments that shaped the path",
+    "crisis": "Moments of doubt, choice, or challenge to commitment",
+    "climax": "The realization of true purpose - what it really means",
+    "resolution": "Renewed commitment, invitation to share the journey"
+  },
+  "triggerMoments": [
+    {
+      "moment": "Anniversary in the business",
+      "contextClues": ["years in the business", "started", "anniversary", "looking back"],
+      "urgency": "anytime"
+    },
+    {
+      "moment": "Particularly meaningful client interaction",
+      "contextClues": ["reminded me why", "this is why", "moments like this"],
+      "urgency": "immediate"
+    },
+    {
+      "moment": "Moments of doubt overcome",
+      "contextClues": ["questioned", "wondered", "hard day", "but then"],
+      "urgency": "this_week"
+    }
+  ],
+  "triggerKeywords": [
+    "why I",
+    "my purpose",
+    "what drives me",
+    "reason I",
+    "passion",
+    "calling",
+    "not just a job",
+    "deeper meaning",
+    "this is why",
+    "love what I do"
+  ],
+  "questions": [
+    {
+      "id": "q1",
+      "question": "How did you get into real estate? What's your origin story?",
+      "purpose": "Establish the journey",
+      "narrativeMapping": "incitingIncident",
+      "placeholder": "I was a corporate lawyer for 10 years before I realized...",
+      "optional": false
+    },
+    {
+      "id": "q2",
+      "question": "What moment or experience confirmed this was your path?",
+      "purpose": "The defining moment",
+      "narrativeMapping": "risingAction",
+      "placeholder": "When I handed keys to a single mom who never thought she could own...",
+      "optional": false
+    },
+    {
+      "id": "q3",
+      "question": "Have you ever questioned this choice? What kept you going?",
+      "purpose": "Authenticity through challenge",
+      "narrativeMapping": "crisis",
+      "placeholder": "The first year was brutal. I almost quit after losing three deals in a row...",
+      "optional": true
+    },
+    {
+      "id": "q4",
+      "question": "What does this work mean to you beyond income?",
+      "purpose": "The deeper purpose",
+      "narrativeMapping": "climax",
+      "placeholder": "I help people create stability, build wealth, make memories...",
+      "optional": false
+    },
+    {
+      "id": "q5",
+      "question": "What do you want people to know about working with you?",
+      "purpose": "The invitation",
+      "narrativeMapping": "resolution",
+      "placeholder": "I'm not here to sell you a house. I'm here to help you find home...",
+      "optional": false
+    }
+  ],
+  "promptConfig": {
+    "systemContext": "This is a purpose and authenticity piece. The agent shares their deeper motivations. This builds emotional connection and trust. It should feel genuine, not manufactured.",
+    "toneGuidance": "Heartfelt, genuine, not preachy. Share real motivations without sounding like a motivational poster. Let the passion show through specifics.",
+    "slideStructure": [
+      {
+        "slideNumber": 1,
+        "purpose": "Hook",
+        "contentFocus": "The question or statement",
+        "suggestedFormat": "question",
+        "emotionalBeat": "Curiosity"
+      },
+      {
+        "slideNumber": 2,
+        "purpose": "Origin",
+        "contentFocus": "How it started",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Story"
+      },
+      {
+        "slideNumber": 3,
+        "purpose": "Defining moment",
+        "contentFocus": "The moment of clarity",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Connection"
+      },
+      {
+        "slideNumber": 4,
+        "purpose": "The challenge",
+        "contentFocus": "Doubt or difficulty",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Authenticity"
+      },
+      {
+        "slideNumber": 5,
+        "purpose": "The purpose",
+        "contentFocus": "What it really means",
+        "suggestedFormat": "quote",
+        "emotionalBeat": "Meaning"
+      },
+      {
+        "slideNumber": 6,
+        "purpose": "The commitment",
+        "contentFocus": "What drives you daily",
+        "suggestedFormat": "bold_statement",
+        "emotionalBeat": "Passion"
+      },
+      {
+        "slideNumber": 7,
+        "purpose": "CTA",
+        "contentFocus": "Invitation to connect",
+        "suggestedFormat": "cta",
+        "emotionalBeat": "Trust"
+      }
+    ],
+    "avoidPhrases": [
+      "I'm passionate about",
+      "It's my calling",
+      "I love helping people"
+    ],
+    "emphasize": [
+      "specific stories and moments",
+      "real challenges",
+      "genuine motivation",
+      "client impact"
+    ]
+  },
+  "visualThemes": [
+    "agent personal photos",
+    "milestone moments",
+    "client celebrations",
+    "authentic behind-scenes"
+  ],
+  "isActive": true,
+  "isSeasonal": false,
+  "usageHints": [
+    "Be specific - generic statements fall flat",
+    "Include a challenge or doubt for authenticity",
+    "Focus on client impact, not self-aggrandizement",
+    "Great for anniversaries or milestone moments"
+  ],
+  "exampleScenarios": [
+    {
+      "title": "The Career Change",
+      "situation": "Agent explains leaving previous career for real estate",
+      "sampleInput": "I was a corporate accountant for 15 years. Good salary, boring work. When I helped my sister buy her first house, I felt more fulfilled in those 3 weeks than in 15 years of spreadsheets. I quit 6 months later.",
+      "expectedOutput": {
+        "hook": "15 years in accounting. 3 weeks helping my sister. Everything changed.",
+        "keyMoment": "Fulfillment isn't found in spreadsheets. It's found in keys."
+      }
+    }
+  ]
+}
