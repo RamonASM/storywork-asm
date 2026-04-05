@@ -92,6 +92,16 @@ Auth: `X-ASM-Secret` header with `ASM_LIFE_HERE_SECRET` env var.
 
 Error handling: If Life Here API fails or times out (10s), generation proceeds without location data. Logged but not shown to user.
 
+### Geocoding
+
+Address text must be converted to lat/lng before calling Life Here API.
+
+- For linked agents selecting a listing: lat/lng comes from the listing record in ASM Portal (already geocoded). No additional geocoding needed.
+- For manual address entry: Use Google Maps Geocoding API via `GOOGLE_PLACES_API_KEY` (already available in ASM Portal). Storywork needs its own key or proxies through the portal.
+- New env var: `GOOGLE_GEOCODING_API_KEY` (or reuse portal's key via a proxy endpoint)
+- Geocoding call lives in `src/lib/location/geocode.ts`
+- On failure (address not found, API error): show user-facing error "Could not find that address. Try a more specific address or enter coordinates directly." Generation does not proceed with location features until valid lat/lng is resolved.
+
 ### Prompt Injection
 
 In `src/lib/storywork/prompts.ts`, the generation prompt gains an optional location block:
@@ -145,6 +155,7 @@ Migration: `supabase/migrations/YYYYMMDD_001_stories_location.sql`
 | File | Purpose |
 |------|---------|
 | `src/lib/location/life-here-client.ts` | Fetch + normalize Life Here API data |
+| `src/lib/location/geocode.ts` | Address-to-lat/lng via Google Geocoding API |
 | `src/lib/location/types.ts` | TypeScript types for location data |
 | `src/lib/storywork/archetypes/data/lifestyle-spotlight.json` | New archetype |
 | `src/lib/storywork/archetypes/data/neighborhood-guide.json` | New archetype |
@@ -158,7 +169,7 @@ Migration: `supabase/migrations/YYYYMMDD_001_stories_location.sql`
 | `src/lib/storywork/archetypes/pillars.ts` | Add new archetype IDs to THE NEIGHBORHOOD |
 | `src/lib/storywork/archetypes/types.ts` | Add new IDs to `StoryArchetypeId` union |
 | `src/app/api/storywork/generate/route.ts` | Accept address, fetch location data, pass to prompt |
-| `src/lib/validations/storywork.ts` | Add address/lat/lng to generate schema |
+| `src/lib/validations/storywork.ts` | Add address/lat/lng to generate schema AND add `lifestyle_spotlight`, `neighborhood_guide` to `STORY_ARCHETYPES` array (line ~8). This array is independent of `types.ts` and is used by the generate route's Zod validation. Both must be updated or new archetypes will be rejected with 400. |
 
 ---
 
@@ -210,14 +221,19 @@ type SlideBackground = {
   // Gradient: primary_color to gradient_end_color
   gradientDirection?: 'to-bottom' | 'to-right' | 'to-bottom-right'
   gradientEndColor?: string
-  // Photo: listing photo URL with dark overlay
-  imageUrl?: string | null
-  overlayOpacity?: number // 0.0-1.0, default 0.55
+  // Photo: pre-fetched image data (NOT a URL - Satori limitation)
+  imageData?: string | null  // base64 data URI or ArrayBuffer
+  overlayOpacity?: number    // 0.0-1.0, default 0.55
 }
 ```
 
-When `backgroundImage` is present: image fills slide, semi-transparent dark overlay (default rgba(0,0,0,0.55)), white text on top.
+**CRITICAL: Satori does not support `background-image: url()`.** Photo backgrounds must be implemented as stacked Satori elements:
 
+1. **Pre-fetch phase:** Before the render loop, fetch all photo URLs server-side and convert to `data:image/jpeg;base64,...` URIs. Fetch all images in parallel with a 5s timeout per image. On timeout/failure, fall back to solid color for that slide.
+2. **Composition:** The background is a child `<img>` element with `position: absolute`, `width: 100%`, `height: 100%`, `objectFit: cover`. The dark overlay is a sibling `<div>` with `position: absolute`, `backgroundColor: rgba(0,0,0,0.55)`. Content sits on top as a third layer.
+3. **The `background.ts` layout file** accepts `imageData` (base64 string), never raw URLs.
+
+When photo data is present: stacked img + overlay + content elements.
 When absent: solid `primary_color` or gradient based on brand kit settings.
 
 ### Brand Kit Extensions
@@ -238,13 +254,40 @@ New API route: `src/app/api/storywork/listing-photos/route.ts`
 - Agent selects listing during story creation, photos become available as slide backgrounds
 - Layout auto-assigns photos: slide 1 gets hero exterior, remaining slides get interior shots in order
 
+### SlideContent Type Extension
+
+The existing `SlideContent` type in `src/lib/carousel/types.ts` must be extended:
+
+```typescript
+type SlideContent = {
+  headline: string
+  body: string
+  visual_suggestion: string
+  slideNumber: number
+  totalSlides: number
+  suggestedFormat?: 'bold_statement' | 'question' | 'data_point' | 'quote' | 'cta'
+  background?: SlideBackground
+}
+```
+
+The generate route maps `promptConfig.slideStructure[i].suggestedFormat` onto each slide after generation, before passing to the renderer. This metadata flows through from archetype config to rendered output.
+
+### LinkedIn Layout Scaling
+
+Font sizes specified above (64px, 72px, 48px) are for square (1080x1080) and portrait (1080x1920) formats. For LinkedIn landscape (1200x627), all font sizes scale proportionally to the smaller height:
+
+- Scale factor: `Math.min(1, height / 1080)` = 0.58 for LinkedIn
+- Hero headline: 64px * 0.58 = ~37px
+- Data card number: 72px * 0.58 = ~42px
+- Each layout function receives `width` and `height` and computes sizes from them, not hardcoded values
+
 ### Renderer Architecture
 
 ```
 src/lib/carousel/
   renderer.ts          # Dispatcher: selectLayout() -> layout function
   layouts/
-    types.ts           # Shared LayoutProps type
+    types.ts           # Shared LayoutProps type + scale helpers
     hero-slide.ts      # createHeroSlide()
     data-card-slide.ts # createDataCardSlide()
     content-slide.ts   # createContentSlide()
@@ -352,6 +395,12 @@ Syllable counting: simple heuristic (count vowel groups, adjust for silent-e, co
 
 File: `src/lib/carousel/readability.ts`
 
+### Authenticity Dimension Note
+
+The `analyzeAIScore()` function runs on post-humanizer text. Since the humanizer already strips AI-tells, this score will typically be high (90-100). This is intentional: it serves as a safety net catching patterns the humanizer missed, not a primary quality signal.
+
+**Pre-requisite bug fix:** The `AI_TELL_REPLACEMENTS` array in `src/lib/voice/humanizer.ts` uses regex objects with the `g` flag stored as module-level constants. JavaScript's `g` flag retains `lastIndex` state between `.test()` calls, causing intermittent false negatives when `analyzeAIScore()` is called on multiple slides in sequence. Fix: reset `lastIndex = 0` before each `.test()` call, or clone regexes per invocation. This must be fixed before the quality gate ships.
+
 ### UI Components
 
 **QualityScore** - Badge next to format selector:
@@ -373,6 +422,10 @@ When agent clicks "Regenerate this slide":
 - Prompt includes the specific quality issues: "The previous headline was 11 words. Rewrite to max 8 words while keeping the same meaning."
 - Returns single updated slide
 - Quality score re-calculated client-side
+
+**Credit cost:** 15 credits per slide regeneration (vs 75 for full generation). Add `CREDIT_COSTS.slideRegeneration = 15` to `src/lib/credits/config.ts`.
+
+**Rate limiting:** Apply `RateLimits.storyGeneration` (same limiter as full generation) to prevent abuse. Key: `regenerate:${userId}`. Max 10 regenerations per 5 minutes per user.
 
 ### Integration Points
 
@@ -431,6 +484,7 @@ ALTER TABLE storywork_brand_kits
 | Variable | Purpose | Required |
 |----------|---------|----------|
 | `ASM_LIFE_HERE_SECRET` | API key for Life Here API (`X-ASM-Secret`) | For location features |
+| `GOOGLE_GEOCODING_API_KEY` | Google Maps Geocoding for address-to-lat/lng | For manual address entry |
 | `ASM_PORTAL_URL` | Already exists | Already configured |
 | `SERVICE_API_KEY` | Already exists (cross-platform auth) | Already configured |
 
