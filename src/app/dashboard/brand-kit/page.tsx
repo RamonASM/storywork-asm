@@ -1,16 +1,32 @@
 'use client'
 
-export const dynamic = 'force-dynamic'
-
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useUser } from '@clerk/nextjs'
 import { createClient } from '@/lib/supabase/client'
-import { ArrowLeft, Palette, Type, Image, Loader2, Save } from 'lucide-react'
+import { ArrowLeft, Palette, Type, Image as ImageIcon, Loader2, Save } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { BRAND_COLORS } from '@/lib/theme/colors'
+import { toast } from 'sonner'
+
+// Hex color validation
+const isValidHexColor = (color: string): boolean => {
+  return /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/.test(color)
+}
+
+// Normalize partial hex input (allow typing without full validation)
+const normalizeHexInput = (value: string): string => {
+  // Ensure it starts with #
+  if (!value.startsWith('#')) {
+    value = '#' + value
+  }
+  // Only allow valid hex characters after #
+  return '#' + value.slice(1).replace(/[^A-Fa-f0-9]/g, '').slice(0, 6)
+}
 
 const fontOptions = [
   { value: 'Inter', label: 'Inter (Modern)' },
@@ -25,21 +41,58 @@ export default function BrandKitPage() {
   const { user } = useUser()
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
-  const [brandKit, setBrandKit] = useState({
+  const [brandKit, setBrandKit] = useState<{
+    name: string
+    primary_color: string
+    secondary_color: string
+    font_family: string
+    logo_url: string
+    headshot_url: string
+    background_style: 'solid' | 'gradient'
+    gradient_end_color: string
+    gradient_direction: string
+  }>({
     name: 'My Brand',
-    primary_color: '#ff4533',
+    primary_color: BRAND_COLORS.primary,
     secondary_color: '#000000',
     font_family: 'Inter',
     logo_url: '',
     headshot_url: '',
+    background_style: 'solid' as 'solid' | 'gradient',
+    gradient_end_color: '',
+    gradient_direction: 'to-bottom',
   })
   const [error, setError] = useState<string | null>(null)
+  const [colorErrors, setColorErrors] = useState({
+    primary: false,
+    secondary: false,
+  })
 
-  const supabase = createClient()
+  // Handle color text input with validation
+  const handleColorTextChange = useCallback(
+    (field: 'primary_color' | 'secondary_color', value: string) => {
+      const normalized = normalizeHexInput(value)
+      setBrandKit((prev) => ({ ...prev, [field]: normalized }))
+
+      // Update validation state
+      const errorField = field === 'primary_color' ? 'primary' : 'secondary'
+      setColorErrors((prev) => ({
+        ...prev,
+        [errorField]: normalized.length > 1 && !isValidHexColor(normalized),
+      }))
+    },
+    []
+  )
+
+  // Check if colors are valid for saving
+  const hasValidColors =
+    isValidHexColor(brandKit.primary_color) && isValidHexColor(brandKit.secondary_color)
 
   useEffect(() => {
     async function loadBrandKit() {
       if (!user) return
+
+      const supabase = createClient()
 
       const { data: storyworkUser } = await supabase
         .from('storywork_users')
@@ -68,6 +121,9 @@ export default function BrandKitPage() {
           font_family: existingKit.font_family,
           logo_url: existingKit.logo_url || '',
           headshot_url: existingKit.headshot_url || '',
+          background_style: existingKit.background_style || 'solid',
+          gradient_end_color: existingKit.gradient_end_color || '',
+          gradient_direction: existingKit.gradient_direction || 'to-bottom',
         })
       }
 
@@ -75,7 +131,7 @@ export default function BrandKitPage() {
     }
 
     loadBrandKit()
-  }, [supabase, user])
+  }, [user])
 
   const handleSave = async () => {
     if (!user) return
@@ -84,6 +140,7 @@ export default function BrandKitPage() {
     setError(null)
 
     try {
+      const supabase = createClient()
       const { data: storyworkUser } = await supabase
         .from('storywork_users')
         .select('id')
@@ -106,7 +163,7 @@ export default function BrandKitPage() {
 
       if (existingKit) {
         // Update
-        await supabase
+        const { error: updateError } = await supabase
           .from('storywork_brand_kits')
           .update({
             name: brandKit.name,
@@ -115,12 +172,19 @@ export default function BrandKitPage() {
             font_family: brandKit.font_family,
             logo_url: brandKit.logo_url || null,
             headshot_url: brandKit.headshot_url || null,
+            background_style: brandKit.background_style,
+            gradient_end_color: brandKit.gradient_end_color || null,
+            gradient_direction: brandKit.gradient_direction,
             updated_at: new Date().toISOString(),
           })
           .eq('id', existingKit.id)
+
+        if (updateError) {
+          throw new Error(updateError.message)
+        }
       } else {
         // Create
-        await supabase.from('storywork_brand_kits').insert({
+        const { error: insertError } = await supabase.from('storywork_brand_kits').insert({
           user_id: storyworkUser.id,
           name: brandKit.name,
           primary_color: brandKit.primary_color,
@@ -128,14 +192,23 @@ export default function BrandKitPage() {
           font_family: brandKit.font_family,
           logo_url: brandKit.logo_url || null,
           headshot_url: brandKit.headshot_url || null,
+          background_style: brandKit.background_style,
+          gradient_end_color: brandKit.gradient_end_color || null,
+          gradient_direction: brandKit.gradient_direction,
           is_default: true,
         })
+
+        if (insertError) {
+          throw new Error(insertError.message)
+        }
       }
 
+      toast.success('Brand kit saved successfully!')
       router.push('/dashboard')
     } catch (err) {
       console.error('Error saving brand kit:', err)
       setError('Failed to save brand kit')
+      toast.error('Failed to save brand kit')
       setSaving(false)
     }
   }
@@ -181,7 +254,7 @@ export default function BrandKitPage() {
                   <Input
                     id="primary_color"
                     type="color"
-                    value={brandKit.primary_color}
+                    value={isValidHexColor(brandKit.primary_color) ? brandKit.primary_color : BRAND_COLORS.primary}
                     onChange={(e) =>
                       setBrandKit((prev) => ({
                         ...prev,
@@ -193,15 +266,14 @@ export default function BrandKitPage() {
                   <Input
                     type="text"
                     value={brandKit.primary_color}
-                    onChange={(e) =>
-                      setBrandKit((prev) => ({
-                        ...prev,
-                        primary_color: e.target.value,
-                      }))
-                    }
-                    className="flex-1"
+                    onChange={(e) => handleColorTextChange('primary_color', e.target.value)}
+                    className={`flex-1 ${colorErrors.primary ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                    placeholder="#ff4533"
                   />
                 </div>
+                {colorErrors.primary && (
+                  <p className="mt-1 text-xs text-red-500">Enter a valid hex color (e.g., #ff4533)</p>
+                )}
               </div>
               <div>
                 <Label htmlFor="secondary_color">Secondary Color</Label>
@@ -209,7 +281,7 @@ export default function BrandKitPage() {
                   <Input
                     id="secondary_color"
                     type="color"
-                    value={brandKit.secondary_color}
+                    value={isValidHexColor(brandKit.secondary_color) ? brandKit.secondary_color : '#000000'}
                     onChange={(e) =>
                       setBrandKit((prev) => ({
                         ...prev,
@@ -221,16 +293,95 @@ export default function BrandKitPage() {
                   <Input
                     type="text"
                     value={brandKit.secondary_color}
-                    onChange={(e) =>
-                      setBrandKit((prev) => ({
-                        ...prev,
-                        secondary_color: e.target.value,
-                      }))
-                    }
-                    className="flex-1"
+                    onChange={(e) => handleColorTextChange('secondary_color', e.target.value)}
+                    className={`flex-1 ${colorErrors.secondary ? 'border-red-500 focus-visible:ring-red-500' : ''}`}
+                    placeholder="#000000"
                   />
                 </div>
+                {colorErrors.secondary && (
+                  <p className="mt-1 text-xs text-red-500">Enter a valid hex color (e.g., #000000)</p>
+                )}
               </div>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-neutral-200 bg-white p-6">
+            <div className="mb-4 flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-100">
+                <Palette className="h-5 w-5 text-orange-600" />
+              </div>
+              <h2 className="font-semibold text-neutral-900">Background Style</h2>
+            </div>
+
+            <div className="space-y-4">
+              {/* Style Toggle */}
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setBrandKit(prev => ({ ...prev, background_style: 'solid' as const }))}
+                  className={`flex-1 rounded-lg border p-3 text-center text-sm font-medium transition-colors ${
+                    brandKit.background_style === 'solid'
+                      ? 'border-[#ff4533] bg-red-50 text-[#ff4533]'
+                      : 'border-neutral-200 text-neutral-600 hover:border-neutral-300'
+                  }`}
+                >
+                  Solid Color
+                </button>
+                <button
+                  onClick={() => setBrandKit(prev => ({ ...prev, background_style: 'gradient' as const }))}
+                  className={`flex-1 rounded-lg border p-3 text-center text-sm font-medium transition-colors ${
+                    brandKit.background_style === 'gradient'
+                      ? 'border-[#ff4533] bg-red-50 text-[#ff4533]'
+                      : 'border-neutral-200 text-neutral-600 hover:border-neutral-300'
+                  }`}
+                >
+                  Gradient
+                </button>
+              </div>
+
+              {/* Gradient Options (only visible when gradient selected) */}
+              {brandKit.background_style === 'gradient' && (
+                <div className="space-y-4 pt-2">
+                  <div>
+                    <Label htmlFor="gradient_end_color">Gradient End Color</Label>
+                    <div className="mt-1 flex gap-2">
+                      <Input
+                        id="gradient_end_color"
+                        type="color"
+                        value={isValidHexColor(brandKit.gradient_end_color) ? brandKit.gradient_end_color : '#000000'}
+                        onChange={(e) => setBrandKit(prev => ({ ...prev, gradient_end_color: e.target.value }))}
+                        className="h-10 w-16 cursor-pointer p-1"
+                      />
+                      <Input
+                        type="text"
+                        value={brandKit.gradient_end_color}
+                        onChange={(e) => {
+                          const normalized = normalizeHexInput(e.target.value)
+                          setBrandKit(prev => ({ ...prev, gradient_end_color: normalized }))
+                        }}
+                        className="flex-1"
+                        placeholder="#000000"
+                      />
+                    </div>
+                    <p className="mt-1 text-xs text-neutral-500">
+                      Gradient goes from Primary Color to this color
+                    </p>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="gradient_direction">Direction</Label>
+                    <select
+                      id="gradient_direction"
+                      value={brandKit.gradient_direction}
+                      onChange={(e) => setBrandKit(prev => ({ ...prev, gradient_direction: e.target.value }))}
+                      className="mt-1 w-full rounded-lg border border-neutral-200 px-3 py-2"
+                    >
+                      <option value="to-bottom">Top to Bottom</option>
+                      <option value="to-right">Left to Right</option>
+                      <option value="to-bottom-right">Diagonal</option>
+                    </select>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -267,7 +418,7 @@ export default function BrandKitPage() {
           <div className="rounded-lg border border-neutral-200 bg-white p-6">
             <div className="mb-4 flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-100">
-                <Image className="h-5 w-5 text-green-600" />
+                <ImageIcon className="h-5 w-5 text-green-600" />
               </div>
               <h2 className="font-semibold text-neutral-900">Images</h2>
             </div>
@@ -309,7 +460,7 @@ export default function BrandKitPage() {
             <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">{error}</div>
           )}
 
-          <Button onClick={handleSave} disabled={saving} className="w-full">
+          <Button onClick={handleSave} disabled={saving || !hasValidColors} className="w-full">
             {saving ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -330,12 +481,30 @@ export default function BrandKitPage() {
           <div className="rounded-lg border border-neutral-200 bg-white p-4">
             <div
               className="aspect-square rounded-lg p-6"
-              style={{ backgroundColor: brandKit.primary_color }}
+              style={{
+                backgroundColor: brandKit.background_style === 'gradient' && brandKit.gradient_end_color
+                  ? undefined
+                  : brandKit.primary_color,
+                backgroundImage: brandKit.background_style === 'gradient' && brandKit.gradient_end_color
+                  ? `linear-gradient(${
+                      brandKit.gradient_direction === 'to-right' ? 'to right' :
+                      brandKit.gradient_direction === 'to-bottom-right' ? 'to bottom right' :
+                      'to bottom'
+                    }, ${brandKit.primary_color}, ${brandKit.gradient_end_color})`
+                  : undefined,
+              }}
             >
               <div className="flex h-full flex-col justify-between">
                 <div>
                   {brandKit.logo_url && (
-                    <img src={brandKit.logo_url} alt="Logo" className="h-12 w-auto" />
+                    <Image
+                      src={brandKit.logo_url}
+                      alt="Logo"
+                      width={120}
+                      height={48}
+                      className="h-12 w-auto object-contain"
+                      unoptimized
+                    />
                   )}
                 </div>
                 <div>
@@ -354,10 +523,13 @@ export default function BrandKitPage() {
                 </div>
                 <div className="flex items-center gap-3">
                   {brandKit.headshot_url && (
-                    <img
+                    <Image
                       src={brandKit.headshot_url}
                       alt="Headshot"
+                      width={40}
+                      height={40}
                       className="h-10 w-10 rounded-full object-cover"
+                      unoptimized
                     />
                   )}
                   <div>
