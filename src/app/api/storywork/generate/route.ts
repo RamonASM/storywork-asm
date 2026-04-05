@@ -8,6 +8,7 @@ import { spendCredits, getOrCreateUser } from '@/lib/credits/service'
 import { CREDIT_COSTS } from '@/lib/credits/config'
 import { storyGenerateSchema, createValidationError } from '@/lib/validations/storywork'
 import { checkRateLimit, RateLimits, rateLimitHeaders } from '@/lib/rate-limit/limiter'
+import { fetchLifeHereData } from '@/lib/location/life-here-client'
 import { getVoiceProfile, generateVoicePromptAdditions } from '@/lib/voice/profile-service'
 import { humanizeCarouselSlides } from '@/lib/voice/humanizer'
 import { DEFAULT_VOICE_PROFILE } from '@/lib/voice/types'
@@ -56,7 +57,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(createValidationError(validation.error), { status: 400 })
     }
 
-    const { storyId, storyType, answers } = validation.data
+    const { storyId, storyType, answers, address, lat, lng } = validation.data
 
     // Get or create storywork user
     const storyworkUser = await getOrCreateUser(userId, email)
@@ -88,9 +89,13 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Fetch Life Here location data if coordinates provided
+    const locationData =
+      lat != null && lng != null ? await fetchLifeHereData(lat, lng) : null
+
     // Generate voice-aware prompt
     const agentName = user?.firstName || 'Agent'
-    let prompt = generateStoryContentPrompt(storyType, answers, agentName)
+    let prompt = generateStoryContentPrompt(storyType, answers, agentName, locationData)
 
     if (!prompt) {
       return NextResponse.json({ error: 'Invalid story type' }, { status: 400 })
@@ -136,6 +141,10 @@ export async function POST(request: NextRequest) {
         generated_content: generatedContent,
         status: 'completed',
         updated_at: new Date().toISOString(),
+        ...(address != null && { address }),
+        ...(lat != null && { lat }),
+        ...(lng != null && { lng }),
+        ...(locationData != null && { location_data: locationData }),
       })
       .eq('id', storyId)
       .eq('user_id', storyworkUser.id)
