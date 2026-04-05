@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useUser } from '@clerk/nextjs'
@@ -114,7 +114,41 @@ export default function NewStoryPage() {
     reasoning: string
   } | null>(null)
 
+  const [address, setAddress] = useState('')
+  const [addressLat, setAddressLat] = useState<number | null>(null)
+  const [addressLng, setAddressLng] = useState<number | null>(null)
+  const [listings, setListings] = useState<Array<{ listingId: string; address: string; lat?: number; lng?: number; photos: string[] }>>([])
+  const [loadingListings, setLoadingListings] = useState(false)
+  const [isLinkedAgent, setIsLinkedAgent] = useState(false)
+
   const supabase = createClient()
+
+  useEffect(() => {
+    async function checkLinkedAgent() {
+      if (!user) return
+      const { data: storyworkUser } = await supabase
+        .from('storywork_users')
+        .select('asm_agent_id')
+        .eq('clerk_id', user.id)
+        .single()
+      if (storyworkUser?.asm_agent_id) {
+        setIsLinkedAgent(true)
+        setLoadingListings(true)
+        try {
+          const res = await fetch('/api/storywork/listing-photos')
+          if (res.ok) {
+            const data = await res.json()
+            setListings(data.listings || [])
+          }
+        } catch (e) {
+          console.error('Failed to fetch listings:', e)
+        } finally {
+          setLoadingListings(false)
+        }
+      }
+    }
+    checkLinkedAgent()
+  }, [user, supabase])
 
   const handleDetectStoryType = async () => {
     if (!textInput.trim()) return
@@ -243,6 +277,9 @@ export default function NewStoryPage() {
           pillar_id: selectedPillar || archetype?.pillarId,
           raw_input: textInput,
           answers,
+          address: address || null,
+          lat: addressLat || null,
+          lng: addressLng || null,
           status: 'draft',
         })
         .select()
@@ -530,6 +567,57 @@ export default function NewStoryPage() {
           </p>
         </div>
 
+        {/* Address Input (optional for most, required for neighborhood archetypes) */}
+        <div className="rounded-lg bg-neutral-800/50 border border-neutral-700 p-4 space-y-3">
+          <div className="flex items-center gap-2">
+            <MapPin className="h-4 w-4 text-emerald-400" />
+            <Label className="text-neutral-200">
+              Property Address
+              {(selectedType === 'lifestyle_spotlight' || selectedType === 'neighborhood_guide')
+                ? <span className="text-red-400 ml-1">*</span>
+                : <span className="text-neutral-500 ml-2 text-sm">(optional - enriches with location data)</span>
+              }
+            </Label>
+          </div>
+
+          {isLinkedAgent && listings.length > 0 && (
+            <div>
+              <Label className="text-neutral-400 text-xs">Pick from your listings</Label>
+              <select
+                value=""
+                onChange={(e) => {
+                  const listing = listings.find(l => l.listingId === e.target.value)
+                  if (listing) {
+                    setAddress(listing.address)
+                    if (listing.lat) setAddressLat(listing.lat)
+                    if (listing.lng) setAddressLng(listing.lng)
+                  }
+                }}
+                className="mt-1 w-full rounded-lg border border-neutral-700 bg-neutral-900 px-3 py-2 text-white text-sm"
+              >
+                <option value="">Select a listing...</option>
+                {listings.map(l => (
+                  <option key={l.listingId} value={l.listingId}>{l.address}</option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          <Input
+            value={address}
+            onChange={(e) => {
+              setAddress(e.target.value)
+              setAddressLat(null)
+              setAddressLng(null)
+            }}
+            placeholder="123 Main St, Orlando, FL 32801"
+            className="bg-neutral-900 border-neutral-700 text-white placeholder:text-neutral-500"
+          />
+          {address && !addressLat && (
+            <p className="text-xs text-neutral-500">Address will be geocoded when generating</p>
+          )}
+        </div>
+
         <div className="space-y-4">
           {questions.map((q, index) => (
             <div key={q.id} className="space-y-2">
@@ -557,7 +645,11 @@ export default function NewStoryPage() {
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back
           </Button>
-          <Button onClick={handleCreateStory} disabled={loading} className="flex-1">
+          <Button
+            onClick={handleCreateStory}
+            disabled={!(!loading && (!(selectedType === 'lifestyle_spotlight' || selectedType === 'neighborhood_guide') || address.trim().length > 0))}
+            className="flex-1"
+          >
             {loading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
