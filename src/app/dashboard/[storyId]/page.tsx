@@ -1,9 +1,6 @@
 'use client'
 
-export const dynamic = 'force-dynamic'
-
 import { useState, useEffect, use } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useUser } from '@clerk/nextjs'
 import { createClient } from '@/lib/supabase/client'
@@ -12,15 +9,23 @@ import {
   ArrowLeft,
   Loader2,
   Sparkles,
-  Download,
   Copy,
   Check,
   RefreshCw,
-  Image,
+  Image as ImageIcon,
+  Mic,
+  Quote,
+  Lightbulb,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { CarouselPreview } from '@/components/carousel'
+import { toast } from 'sonner'
+import type { BrandKit, GeneratedContent } from '@/lib/carousel/types'
+import type { QualityReport } from '@/lib/carousel/quality-checker'
+import { validateCarouselQuality } from '@/lib/carousel/quality-checker'
+import { BRAND_COLORS } from '@/lib/theme/colors'
 
 interface Story {
   id: string
@@ -29,33 +34,28 @@ interface Story {
   story_type: string
   raw_input: string
   answers: Record<string, string>
-  generated_content: {
-    slides: Array<{
-      headline: string
-      body: string
-      visual_suggestion: string
-    }>
-    hashtags: string[]
-    caption: string
-  } | null
+  generated_content: GeneratedContent | null
   status: string
   created_at: string
+  source_type?: 'text' | 'voice'
 }
 
 export default function StoryDetailPage({ params }: { params: Promise<{ storyId: string }> }) {
   const resolvedParams = use(params)
-  const router = useRouter()
   const { user } = useUser()
   const [story, setStory] = useState<Story | null>(null)
+  const [brandKit, setBrandKit] = useState<BrandKit | null>(null)
   const [loading, setLoading] = useState(true)
   const [generating, setGenerating] = useState(false)
   const [copied, setCopied] = useState<string | null>(null)
-
-  const supabase = createClient()
+  const [qualityReport, setQualityReport] = useState<QualityReport | null>(null)
+  const [regeneratingSlide, setRegeneratingSlide] = useState<number | null>(null)
 
   useEffect(() => {
     async function loadStory() {
       if (!user) return
+
+      const supabase = createClient()
 
       const { data: storyworkUser } = await supabase
         .from('storywork_users')
@@ -68,19 +68,51 @@ export default function StoryDetailPage({ params }: { params: Promise<{ storyId:
         return
       }
 
-      const { data } = await supabase
-        .from('storywork_stories')
-        .select('*')
-        .eq('id', resolvedParams.storyId)
-        .eq('user_id', storyworkUser.id)
-        .single()
+      // Load story and brand kit in parallel for better performance
+      const [storyResult, brandKitResult] = await Promise.all([
+        supabase
+          .from('storywork_stories')
+          .select('*')
+          .eq('id', resolvedParams.storyId)
+          .eq('user_id', storyworkUser.id)
+          .single(),
+        supabase
+          .from('storywork_brand_kits')
+          .select('*')
+          .eq('user_id', storyworkUser.id)
+          .single(),
+      ])
 
-      setStory(data as Story | null)
+      setStory(storyResult.data as Story | null)
+
+      const resolvedBrandKit: BrandKit = brandKitResult.data
+        ? (brandKitResult.data as BrandKit)
+        : {
+            id: 'default',
+            name: '',
+            primary_color: BRAND_COLORS.carouselPrimary,
+            secondary_color: BRAND_COLORS.carouselSecondary,
+            font_family: 'Inter',
+            logo_url: null,
+            headshot_url: null,
+          }
+
+      setBrandKit(resolvedBrandKit)
+
+      // Compute quality report for existing generated content
+      if (storyResult.data?.generated_content?.slides && resolvedBrandKit) {
+        const report = validateCarouselQuality(
+          storyResult.data.generated_content.slides,
+          resolvedBrandKit
+        )
+        setQualityReport(report)
+      }
+
       setLoading(false)
     }
 
     loadStory()
-  }, [supabase, resolvedParams.storyId, user])
+  }, [resolvedParams.storyId, user])
 
   const handleGenerate = async () => {
     if (!story) return
@@ -101,7 +133,12 @@ export default function StoryDetailPage({ params }: { params: Promise<{ storyId:
       const data = await response.json()
 
       if (data.success) {
+        if (data.qualityReport) {
+          setQualityReport(data.qualityReport)
+        }
+
         // Refresh story data
+        const supabase = createClient()
         const { data: updatedStory } = await supabase
           .from('storywork_stories')
           .select('*')
@@ -109,14 +146,71 @@ export default function StoryDetailPage({ params }: { params: Promise<{ storyId:
           .single()
 
         setStory(updatedStory as Story)
+        toast.success('Content generated successfully!')
       } else {
-        alert(data.error || 'Failed to generate content')
+        toast.error(data.error || 'Failed to generate content')
       }
     } catch (error) {
       console.error('Generation error:', error)
-      alert('Failed to generate content')
+      toast.error('Failed to generate content')
     } finally {
       setGenerating(false)
+    }
+  }
+
+  const handleRegenerateSlide = async (slideIndex: number) => {
+    if (!story?.generated_content?.slides || !story.id) return
+
+    const slide = story.generated_content.slides[slideIndex]
+    if (!slide) return
+
+    setRegeneratingSlide(slideIndex)
+
+    // Get quality flags for this slide
+    const flags = qualityReport?.slideFlags
+      .find(f => f.slideIndex === slideIndex)
+      ?.issues || ['Improve quality']
+
+    try {
+      const response = await fetch('/api/storywork/regenerate-slide', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          slide: { headline: slide.headline, body: slide.body },
+          qualityFlags: flags,
+          storyId: story.id,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (data.success && data.slide) {
+        // Update slide in story content
+        const updatedSlides = [...story.generated_content.slides]
+        updatedSlides[slideIndex] = {
+          ...updatedSlides[slideIndex],
+          headline: data.slide.headline,
+          body: data.slide.body,
+        }
+
+        const updatedContent = { ...story.generated_content, slides: updatedSlides }
+        setStory({ ...story, generated_content: updatedContent })
+
+        // Recompute quality report
+        if (brandKit) {
+          const report = validateCarouselQuality(updatedSlides, brandKit)
+          setQualityReport(report)
+        }
+
+        toast.success(`Slide ${slideIndex + 1} regenerated!`)
+      } else {
+        toast.error(data.error || 'Failed to regenerate slide')
+      }
+    } catch (error) {
+      console.error('Regenerate slide error:', error)
+      toast.error('Failed to regenerate slide')
+    } finally {
+      setRegeneratingSlide(null)
     }
   }
 
@@ -176,6 +270,12 @@ export default function StoryDetailPage({ params }: { params: Promise<{ storyId:
               <Badge className={getStoryTypeColor(story.story_type)}>
                 {storyTypeData?.name || story.story_type}
               </Badge>
+              {story.source_type === 'voice' && (
+                <Badge variant="outline" className="border-purple-300 text-purple-700 bg-purple-50">
+                  <Mic className="mr-1 h-3 w-3" />
+                  Voice
+                </Badge>
+              )}
             </div>
             <p className="mt-1 text-neutral-600">
               Created {new Date(story.created_at).toLocaleDateString()}
@@ -297,13 +397,61 @@ export default function StoryDetailPage({ params }: { params: Promise<{ storyId:
                     ))}
                   </div>
                 </div>
+
+                {/* Voice Metadata */}
+                {story.generated_content.voice_metadata && (
+                  <div className="mt-4 pt-4 border-t border-neutral-200">
+                    <div className="flex items-center gap-2 mb-3">
+                      <Mic className="h-4 w-4 text-purple-600" />
+                      <p className="text-sm font-medium text-purple-700">Voice Story Insights</p>
+                    </div>
+
+                    {/* Authentic Phrases */}
+                    {(story.generated_content.voice_metadata?.extracted_elements?.authentic_phrases?.length ?? 0) > 0 && (
+                      <div className="mb-3">
+                        <p className="text-xs font-medium text-neutral-500 flex items-center gap-1 mb-1">
+                          <Quote className="h-3 w-3" />
+                          Your Authentic Phrases
+                        </p>
+                        <div className="flex flex-wrap gap-1">
+                          {story.generated_content.voice_metadata.extracted_elements.authentic_phrases.map((phrase, i) => (
+                            <span
+                              key={i}
+                              className="text-xs bg-purple-50 text-purple-700 px-2 py-1 rounded-full"
+                            >
+                              &ldquo;{phrase}&rdquo;
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Emotional Beats */}
+                    {(story.generated_content.voice_metadata?.extracted_elements?.emotional_beats?.length ?? 0) > 0 && (
+                      <div>
+                        <p className="text-xs font-medium text-neutral-500 flex items-center gap-1 mb-1">
+                          <Lightbulb className="h-3 w-3" />
+                          Emotional Moments Captured
+                        </p>
+                        <ul className="text-xs text-neutral-600 space-y-1">
+                          {story.generated_content.voice_metadata.extracted_elements.emotional_beats.map((beat, i) => (
+                            <li key={i} className="flex items-start gap-1">
+                              <span className="text-purple-500 mt-0.5">•</span>
+                              {beat}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
         ) : (
           <Card className="border-dashed">
             <CardContent className="flex flex-col items-center justify-center py-12">
-              <Image className="h-12 w-12 text-neutral-300" />
+              <ImageIcon className="h-12 w-12 text-neutral-300" />
               <p className="mt-4 text-neutral-500">No content generated yet</p>
               <p className="mt-1 text-sm text-neutral-400">
                 Click Generate Content to create your carousel
@@ -313,43 +461,19 @@ export default function StoryDetailPage({ params }: { params: Promise<{ storyId:
         )}
       </div>
 
-      {/* Slides Preview */}
-      {story.generated_content?.slides && (
-        <div>
-          <h2 className="mb-4 text-lg font-semibold text-neutral-900">Carousel Slides</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {story.generated_content.slides.map((slide, index) => (
-              <Card key={index}>
-                <CardHeader className="pb-2">
-                  <div className="flex items-center justify-between">
-                    <Badge variant="outline">Slide {index + 1}</Badge>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() =>
-                        copyToClipboard(`${slide.headline}\n\n${slide.body}`, `slide-${index}`)
-                      }
-                    >
-                      {copied === `slide-${index}` ? (
-                        <Check className="h-4 w-4 text-green-600" />
-                      ) : (
-                        <Copy className="h-4 w-4" />
-                      )}
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="aspect-square rounded-lg bg-gradient-to-br from-neutral-100 to-neutral-200 p-4">
-                    <h3 className="text-lg font-bold text-neutral-900">{slide.headline}</h3>
-                    <p className="mt-2 text-sm text-neutral-600">{slide.body}</p>
-                  </div>
-                  <p className="mt-3 text-xs text-neutral-400">
-                    <strong>Visual:</strong> {slide.visual_suggestion}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      {/* Carousel Preview with Export */}
+      {story.generated_content?.slides && brandKit && (
+        <div className="bg-neutral-900 rounded-xl p-6">
+          <h2 className="mb-6 text-lg font-semibold text-white">Carousel Preview & Export</h2>
+          <CarouselPreview
+            content={story.generated_content}
+            brandKit={brandKit}
+            storyId={story.id}
+            storyTitle={story.title}
+            qualityReport={qualityReport ?? undefined}
+            onRegenerateSlide={handleRegenerateSlide}
+            regeneratingSlide={regeneratingSlide}
+          />
         </div>
       )}
     </div>
