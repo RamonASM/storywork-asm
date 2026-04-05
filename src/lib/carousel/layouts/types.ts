@@ -8,11 +8,13 @@ export interface LayoutProps {
   background?: SlideBackground
 }
 
+export type SatoriChildren = SatoriElement | SatoriElement[] | string | (SatoriElement | string)[] | null | undefined
+
 export type SatoriElement = {
   type: string
   props: {
     style?: Record<string, unknown>
-    children?: SatoriElement | SatoriElement[] | string | null
+    children?: SatoriChildren
     src?: string
     [key: string]: unknown
   }
