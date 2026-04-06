@@ -9,6 +9,8 @@ import { createHeroSlide } from './layouts/hero-slide'
 import { createDataCardSlide } from './layouts/data-card-slide'
 import { createContentSlide } from './layouts/content-slide'
 import { createCtaSlide } from './layouts/cta-slide'
+import { createQuoteCardSlide } from './layouts/quote-card-slide'
+import { createStatRowSlide } from './layouts/stat-row-slide'
 import type { LayoutProps } from './layouts/types'
 import type { SuggestedFormat, LayoutType } from './types'
 
@@ -67,8 +69,9 @@ function selectLayout(slide: SlideContent): LayoutType {
       case 'bold_statement': return 'hero'
       case 'data_point': return 'data_card'
       case 'cta': return 'cta'
+      case 'quote': return 'quote_card'
+      case 'stat_row': return 'stat_row'
       case 'question':
-      case 'quote':
       default: return 'content'
     }
   }
@@ -95,6 +98,8 @@ function createSlideElement(
     case 'hero': return createHeroSlide(props)
     case 'data_card': return createDataCardSlide(props)
     case 'cta': return createCtaSlide(props)
+    case 'quote_card': return createQuoteCardSlide(props)
+    case 'stat_row': return createStatRowSlide(props)
     case 'content':
     default: return createContentSlide(props)
   }

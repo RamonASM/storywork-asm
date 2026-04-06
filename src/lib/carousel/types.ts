@@ -9,8 +9,8 @@ export interface FormatConfig {
 }
 
 // Layout and background types
-export type LayoutType = 'hero' | 'data_card' | 'content' | 'cta'
-export type SuggestedFormat = 'bold_statement' | 'question' | 'data_point' | 'quote' | 'cta'
+export type LayoutType = 'hero' | 'data_card' | 'content' | 'cta' | 'quote_card' | 'stat_row'
+export type SuggestedFormat = 'bold_statement' | 'question' | 'data_point' | 'quote' | 'cta' | 'stat_row'
 export type BackgroundStyle = 'solid' | 'gradient' | 'photo'
 
 export interface SlideBackground {
